@@ -137,7 +137,12 @@ const PaymentInformation = () => {
         if(url[1] !== undefined){
             const index = url[1].split('=');
             const purchase_history = localStorage.getItem('purchase_history') || '[]';
-            timestamp = new Date(JSON.parse(purchase_history).at(index[1]).timestamp);
+            if(purchase_history !== '[]')
+                timestamp = new Date(JSON.parse(purchase_history).at(index[1]).timestamp);
+            else
+                timestamp = new Date();
+        } else {
+            timestamp = new Date();
         }
     } else {
         timestamp = new Date();
