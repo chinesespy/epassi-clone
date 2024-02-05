@@ -104,6 +104,10 @@ const PaymentInformation = () => {
                     const purchase_history = localStorage.getItem('purchase_history') || '[]';
                     if(purchase_history !== '[]')
                         now = new Date(JSON.parse(purchase_history).at(index[1]).timestamp);
+                    else
+                        now = new Date();
+                } else {
+                    now = new Date();
                 }
             } else {
                 now = new Date();
