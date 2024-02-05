@@ -10,7 +10,8 @@ const Header = () => {
     const router = useRouter();
     const [myMoney, setMyMoney] = useState('');
     useEffect(() => {
-        setMyMoney(localStorage.getItem('mymoney') == '' ? '0,00' : localStorage.getItem('mymoney'));
+        const mymoney_ = localStorage.getItem('mymoney') || undefined;
+        setMyMoney( mymoney_ == undefined ? '0,00' : localStorage.getItem('mymoney'));
         return;
     }, []);
 
