@@ -16,15 +16,6 @@
     }
   }
 
-  .image-container img {
-    width: 25%; /* Each image takes up 25% of the container width */
-    flex-shrink: 0; /* Prevent images from shrinking */
-    box-sizing: border-box; /* Include padding and border in the width */
-    padding: 5px; /* Add padding to create space between images */
-    
-}
-
-
 .loader {
   color: rgba(55,88,255,1);
     font-size: 45px;

@@ -61,7 +61,7 @@ const MainInfo = () => {
 
     return (
         <>
-            <div className="container left-[4rem] text-center relative h-[32rem] mt-12" style={{ overflowX: 'hidden' }}>
+            <div className="container text-center relative mt-12 w-screen" style={{ overflowX: 'hidden' }}>
                 <div className='w-screen'>
                     <div className='mt-[2.5rem]'>
                         <div className='flex justify-center align-top'>
@@ -149,7 +149,7 @@ const PaymentInformation = () => {
     const minutes = Math.floor(remainingTime / (1000 * 60));
     const seconds = Math.floor((remainingTime / 1000) % 60);
     return (
-        <div className="container pt-3 pb-[1rem] left-[4rem] relative shadow-lg " style={{ overflowX: 'hidden' }}>
+        <div className="container mt-20 pb-[2rem] relative shadow-lg " style={{ overflowX: 'hidden' }}>
             <div className='w-screen'>
                 <div className='grid grid-cols-2 p-1'>
                     <div className='flex justify-start font-bold ml-[3rem] text-nowrap'>Confirmation code</div>
@@ -174,11 +174,11 @@ const PaymentInformation = () => {
 
 const RollingSVG = () => {
     return (
-        <div className='flex w-[130vw] h-[10rem]'>
+        <div className='relative flex w-[120vw] left-[-4rem] h-[10rem]'>
             <div className="slider-container h-full">
                 <div className="image-container flex flex-nowrap">
-                    <div className='flex  flex-wrap relative -right-10 top-[-10rem]'>
-                        {[...Array(28)].map((_, index) => (   
+                    <div className='flex flex-wrap relative -right-10 top-[-25rem]' id='img_container'>
+                        {[...Array(34)].map((_, index) => (   
                             <EPassiLogo key={index} className={`${index % 2 === 1 ? 'top-10' : ''} m-1 size-[7.5rem] p-1 relative`}/>        
                         ))}
                     </div>
@@ -199,7 +199,7 @@ export default function PaymentDone() {
     }, []);
 
     return (
-        <div className='h-screen overflow-x-hidden'>
+        <div className='h-screen max-w-full overflow-x-hidden'>
 
             {!contentLoaded && (
               <div className='h-screen w-12 flex items-center justify-center'>
@@ -211,11 +211,14 @@ export default function PaymentDone() {
                 <>
                     <Header />
                     <MainInfo />
-                    <div className="flex items-center justify-center pt-10 pb-5">
+                   
+                    <div className='bottom-5 inset-x-0'>
+                    <div className="flex items-center justify-center mt-28 mb-[-3.75rem]">
                         <div className="w-[22rem] border-b border-neutral-300"></div>
                     </div>
                     <PaymentInformation />
                     <RollingSVG />
+                    </div>
                 </>
             )}
             
