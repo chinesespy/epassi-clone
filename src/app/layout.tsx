@@ -26,7 +26,8 @@ export default function RootLayout({
     <html lang="en">
       <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
       <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"></meta>
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
+      <meta charSet="UTF-8"/>
+       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
       <meta name="robots" content="NOINDEX, NOFOLLOW"/>
       <link rel="manifest" href="../../manifest.json" />
       <meta name="mobile-web-app-capable" content="yes"/>
