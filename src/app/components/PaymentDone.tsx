@@ -150,7 +150,7 @@ const PaymentInformation = () => {
 
     const twentyMinutesLater = new Date((timestamp.getTime() - 60 * 60 * 2000) + 16 * 60 * 1000); 
     const now = new Date();
-    const remainingTime = twentyMinutesLater - now;
+    const remainingTime = +twentyMinutesLater - +now;
     
     let passed = false;
     if (remainingTime <= 0) {

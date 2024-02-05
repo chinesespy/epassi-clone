@@ -26,49 +26,51 @@ function SliderButton() {
 
     useEffect(() => {
      
-      let startClientX;
-      let lastClientX;
-      let lastTimestamp;
+      let startClientX = 0;
+      let lastClientX = 0;
+      let lastTimestamp = 0;
       let velocity = 0;
     
       if (isDragging) {
         const handleMove = (e) => {
-          const sliderRect = sliderRef.current.getBoundingClientRect();
-          const sliderCompRect = sliderComp.current.getBoundingClientRect();
-          if (!sliderCompRect || !sliderRect) return;
-    
-          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-          const timestamp = Date.now();
-    
-          if (!startClientX) {
-            startClientX = clientX;
+          if(sliderRef.current !== null && sliderComp.current !== null){
+            const sliderRect = sliderRef.current.getBoundingClientRect();
+            const sliderCompRect = sliderComp.current.getBoundingClientRect();
+            if (!sliderCompRect || !sliderRect) return;
+      
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const timestamp = Date.now();
+      
+            if (!startClientX) {
+              startClientX = clientX;
+              lastClientX = clientX;
+              lastTimestamp = timestamp;
+              return;
+            }
+      
+            const deltaTime = timestamp - lastTimestamp;
+            const deltaX = clientX - lastClientX;
+            velocity = deltaX / deltaTime;
             lastClientX = clientX;
             lastTimestamp = timestamp;
-            return;
-          }
-    
-          const deltaTime = timestamp - lastTimestamp;
-          const deltaX = clientX - lastClientX;
-          velocity = deltaX / deltaTime;
-          lastClientX = clientX;
-          lastTimestamp = timestamp;
-    
-          const position = Math.min(Math.max(0, sliderCompRect.left - sliderRect.left + deltaX + velocity * 250), sliderRect.width - sliderCompRect.width - 30);
-    
-          if (position <= 5 || position >= sliderRect.width - sliderRect.width * 0.21) {
-            return;
-          }
-    
-          if (sliderComp.current !== null) {
-            sliderComp.current.style.left = `${position}px`;
+      
+            const position = Math.min(Math.max(0, sliderCompRect.left - sliderRect.left + deltaX + velocity * 250), sliderRect.width - sliderCompRect.width - 30);
+      
+            if (position <= 5 || position >= sliderRect.width - sliderRect.width * 0.21) {
+              return;
+            }
+      
+            if (sliderComp.current !== null) {
+              sliderComp.current.style.left = `${position}px`;
+            }
           }
         };
     
         const handleEnd = () => {
           setIsDragging(false);
-          startClientX = undefined;
-          lastClientX = undefined;
-          lastTimestamp = undefined;
+          startClientX = 0;
+          lastClientX = 0;
+          lastTimestamp = 0;
           velocity = 0;
     
           const sliderCompRect = sliderComp.current.getBoundingClientRect();
@@ -143,7 +145,7 @@ const Header = () => {
   const router = useRouter();
   useEffect(() => {
       const mymoney_ = localStorage.getItem('mymoney') || undefined;
-      setMyMoney(mymoney_== undefined ? '0,00' : localStorage.getItem('mymoney'));
+      setMyMoney(mymoney_== undefined ? '0,00' : mymoney_);
       return;
   }, []);
 
@@ -178,7 +180,7 @@ const RestarauntInfo = () => {
   const [restaraunt, setRestaraunt] = useState('');
   useEffect(() => {
     const restaraunt_name = localStorage.getItem('restaraunt') || undefined;
-      setRestaraunt(restaraunt_name == undefined ? 'Vaihda ravintolan nimi asetuksista' : localStorage.getItem('restaraunt'));
+      setRestaraunt(restaraunt_name == undefined ? 'Vaihda ravintolan nimi asetuksista' : restaraunt_name);
       return;
   }, []);
 
