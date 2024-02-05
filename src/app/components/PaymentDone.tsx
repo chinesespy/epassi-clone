@@ -11,7 +11,7 @@ const Header = () => {
     const [myMoney, setMyMoney] = useState('');
     useEffect(() => {
         const mymoney_ = localStorage.getItem('mymoney') || undefined;
-        setMyMoney( mymoney_ == undefined ? '0,00' : localStorage.getItem('mymoney'));
+        setMyMoney( mymoney_ == undefined ? '0,00' : mymoney_);
         return;
     }, []);
 
@@ -47,12 +47,14 @@ const MainInfo = () => {
     const [restaraunt, setRestaraunt] = useState('');
     const router = useRouter();
     useEffect(() => {
-        setRestaraunt(localStorage.getItem('restaraunt') == '' ? 'Vaihda ravintola asetuksista' : localStorage.getItem('restaraunt'));
+        const restaraunt_ = localStorage.getItem('restaraunt') || undefined;
+        setRestaraunt(restaraunt_ == undefined ? 'Vaihda ravintola asetuksista' : restaraunt_);
         const url = document.URL.split('?');
         if(url[1] !== undefined){
             const index = url[1].split('=');
             const purchase_history = localStorage.getItem('purchase_history') || '[]';
-            setPaidAmount(JSON.parse(purchase_history).at(index[1]).sum);
+            if(purchase_history != '[]')
+                setPaidAmount(JSON.parse(purchase_history).at(index[1]).sum);
         }
         return;
     }, []);
@@ -90,7 +92,8 @@ const PaymentInformation = () => {
         if(url[1] !== undefined){
             const index = url[1].split('=');
             const purchase_history = localStorage.getItem('purchase_history') || '[]';
-            setConfirmationCode(JSON.parse(purchase_history).at(index[1]).confirmation_code);
+            if(purchase_history !== '[]')
+                setConfirmationCode(JSON.parse(purchase_history).at(index[1]).confirmation_code);
         }
         const getCurrentTime = () => {
             let now;
@@ -99,7 +102,8 @@ const PaymentInformation = () => {
                 if(url[1] !== undefined){
                     const index = url[1].split('=');
                     const purchase_history = localStorage.getItem('purchase_history') || '[]';
-                    now = new Date(JSON.parse(purchase_history).at(index[1]).timestamp);
+                    if(purchase_history !== '[]')
+                        now = new Date(JSON.parse(purchase_history).at(index[1]).timestamp);
                 }
             } else {
                 now = new Date();
