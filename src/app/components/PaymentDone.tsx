@@ -134,9 +134,6 @@ const PaymentInformation = () => {
             const purchase_history = localStorage.getItem('purchase_history') || '[]';
             if(purchase_history !== '[]') {
                 timestamp = new Date(JSON.parse(purchase_history).at(index[1]).timestamp);
-                const localOffset = timestamp.getTimezoneOffset() * 60000;
-                const localTime = new Date(+timestamp - +localOffset);
-                timestamp = localTime;
             }
         }
     }

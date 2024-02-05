@@ -2,13 +2,22 @@
 'use client';
 
 import PaymentWindow from "@/app/components/PaymentWindow"
+import { useEffect } from 'react';
 
 export default function Home() {
-  document.addEventListener('touchstart', function(event) {
-    if (event.touches.length > 1) {
+  useEffect(() => {
+    const handleTouchStart = (event) => {
+      if (event.touches.length > 1) {
         event.preventDefault();
-    }
-}, { passive: false });
+      }
+    };
+
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+    };
+  }, []);
   return (
     <main className="flex min-h-screen max-w-screen flex-col items-center justify-between p-6" style={{overflow: 'hidden'}}>
         <PaymentWindow/>
