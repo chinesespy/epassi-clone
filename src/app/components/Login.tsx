@@ -46,7 +46,7 @@ const Form = () => {
 
 const Login = () => {
     return (
-        <div className='h-full items-center justify-center flex'>
+        <div className='h-full items-center justify-center flex max-h-full max-w-screen'>
             
             <Form/>
         </div>
