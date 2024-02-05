@@ -159,7 +159,7 @@ const PaymentInformation = () => {
     const minutes = Math.floor(remainingTime / (1000 * 60));
     const seconds = Math.floor((remainingTime / 1000) % 60);
     return (
-        <div className="container pt-5 pb-[2rem] left-[4rem] relative shadow-lg " style={{ overflowX: 'hidden' }}>
+        <div className="container pt-3 pb-[1rem] left-[4rem] relative shadow-lg " style={{ overflowX: 'hidden' }}>
             <div className='w-screen'>
                 <div className='grid grid-cols-2 p-1'>
                     <div className='flex justify-start font-bold ml-[3rem] text-nowrap'>Confirmation code</div>
@@ -184,16 +184,16 @@ const PaymentInformation = () => {
 
 const RollingSVG = () => {
     return (
-        <div className='flex w-[130vw] h-[20rem]'>
+        <div className='flex w-[130vw] h-[10rem]'>
             <div className="slider-container h-full">
                 <div className="image-container flex flex-nowrap">
-                    <div className='flex top-[-700rem] flex-wrap relative -right-10'>
-                        {[...Array(24 * 8 * 8 )].map((_, index) => (   
+                    <div className='flex  flex-wrap relative -right-10 top-[-10rem]'>
+                        {[...Array(28)].map((_, index) => (   
                             <EPassiLogo key={index} className={`${index % 2 === 1 ? 'top-10' : ''} m-1 size-[7.5rem] p-1 relative`}/>        
                         ))}
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
     );
 }

@@ -33,44 +33,42 @@ function SliderButton() {
     
       if (isDragging) {
         const handleMove = (e) => {
-          if(sliderRef.current !== null && sliderComp.current !== null){
-            const sliderRect = sliderRef.current.getBoundingClientRect();
-            const sliderCompRect = sliderComp.current.getBoundingClientRect();
-            if (!sliderCompRect || !sliderRect) return;
-      
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const timestamp = Date.now();
-      
-            if (!startClientX) {
-              startClientX = clientX;
-              lastClientX = clientX;
-              lastTimestamp = timestamp;
-              return;
-            }
-      
-            const deltaTime = timestamp - lastTimestamp;
-            const deltaX = clientX - lastClientX;
-            velocity = deltaX / deltaTime;
+          const sliderRect = sliderRef.current.getBoundingClientRect();
+          const sliderCompRect = sliderComp.current.getBoundingClientRect();
+          if (!sliderCompRect || !sliderRect) return;
+    
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const timestamp = Date.now();
+    
+          if (!startClientX) {
+            startClientX = clientX;
             lastClientX = clientX;
             lastTimestamp = timestamp;
-      
-            const position = Math.min(Math.max(0, sliderCompRect.left - sliderRect.left + deltaX + velocity * 250), sliderRect.width - sliderCompRect.width - 30);
-      
-            if (position <= 5 || position >= sliderRect.width - sliderRect.width * 0.21) {
-              return;
-            }
-      
-            if (sliderComp.current !== null) {
-              sliderComp.current.style.left = `${position}px`;
-            }
+            return;
+          }
+    
+          const deltaTime = timestamp - lastTimestamp;
+          const deltaX = clientX - lastClientX;
+          velocity = deltaX / deltaTime;
+          lastClientX = clientX;
+          lastTimestamp = timestamp;
+    
+          const position = Math.min(Math.max(0, sliderCompRect.left - sliderRect.left + deltaX + velocity * 250), sliderRect.width - sliderCompRect.width - 30);
+    
+          if (position <= 5 || position >= sliderRect.width - sliderRect.width * 0.21) {
+            return;
+          }
+    
+          if (sliderComp.current !== null) {
+            sliderComp.current.style.left = `${position}px`;
           }
         };
     
         const handleEnd = () => {
           setIsDragging(false);
-          startClientX = 0;
-          lastClientX = 0;
-          lastTimestamp = 0;
+          startClientX = undefined;
+          lastClientX = undefined;
+          lastTimestamp = undefined;
           velocity = 0;
     
           const sliderCompRect = sliderComp.current.getBoundingClientRect();
@@ -84,7 +82,7 @@ function SliderButton() {
                 const sum = document.getElementById('sum').innerHTML;
                 const currentDate = new Date();
                 const localOffset = currentDate.getTimezoneOffset() * 60000;
-                const localTime = new Date(+currentDate - localOffset);
+                const localTime = new Date(+currentDate - +localOffset);
                 const localISOString = localTime.toISOString();
                 const history = JSON.parse(localStorage.getItem('purchase_history')) || [];
                 
@@ -222,52 +220,59 @@ const CashierInfo = () => {
 }
 
 const NumberGrid = () => {
-  function handleClick(number) {
+  function handleClick(number: string) {
     const sumElement = document.getElementById('sum');
-    document.getElementById('sum_info').style.display = 'flex'
-    if (!sumElement) return;
+    const sum_info = document.getElementById('sum_info');
+    if(sum_info !== null){
+      sum_info.style.display = 'flex'
+      if (!sumElement) return;
 
-    let sum = sumElement.innerHTML;
+      let sum = sumElement.innerHTML;
 
-    if (number === 'back') {
-      sum = sum.slice(0, -1);
-      if(sum.length == 0){
-        document.getElementById('sum_info').style.display = 'none'
-      }
-    }
-    else if (number === 'dot') {
-      if (!sum.includes(',') && sum != "") {
-        sum += ',';
-      }
-    }
-
-    else if (!isNaN(number)) {
-      if (sum === '0' || !sum.includes(',')) {
-        sum = sum === '0' ? '' : sum;
-        sum += number;
-      } else {
-        let decimals = sum.split(',')[1];
-        if (!decimals || decimals.length < 2) {
-          sum += number;
+      if (number === 'back') {
+        sum = sum.slice(0, -1);
+        if(sum.length == 0){
+          sum_info.style.display = 'none'
         }
       }
+      else if (number === 'dot') {
+        if (!sum.includes(',') && sum != "") {
+          sum += ',';
+        }
+      }
+
+      else if (!isNaN(parseInt(number))) {
+        if (sum === '0' || !sum.includes(',')) {
+          sum = sum === '0' ? '' : sum;
+          sum += number;
+        } else {
+          let decimals = sum.split(',')[1];
+          if (!decimals || decimals.length < 2) {
+            sum += number;
+          }
+        }
+      }
+      sum = sum.replace(',', '.');
+      let employer_pays =  (parseFloat(sum) * 0.25).toFixed(2);
+      let left_to_pay = parseFloat(sum) - +employer_pays;
+      const employee_amount = document.getElementById('employee_amount');
+      const you_pay_amount = document.getElementById('you_pay_amount');
+      if(employee_amount && you_pay_amount){
+        if(parseInt(sum) >= 20.45){
+          sumElement.innerHTML = '20,45';
+          sum = '20.45';
+          let employer_pays2 =  (parseFloat(sum) * 0.25).toFixed(2);
+          let left_to_pay2 = parseFloat(sum) - +employer_pays2;
+          employee_amount.innerText = (isNaN(+employer_pays2) == true) ? "0,00€" : employer_pays2.toString() + "€";
+          you_pay_amount.innerText = (isNaN(left_to_pay2) == true) ? "0,00€" : left_to_pay2.toFixed(2).toString() + "€";
+          return;
+        }
+        sum = sum.replace('.', ',');
+        employee_amount.innerText = (isNaN(+employer_pays) == true) ? "0,00€" : employer_pays.toString() + "€";
+        you_pay_amount.innerText = (isNaN(left_to_pay) == true) ? "0,00€" : left_to_pay.toFixed(2).toString() + "€";
+        sumElement.innerHTML = sum;
+      }
     }
-    sum = sum.replace(',', '.');
-    let employer_pays =  (parseFloat(sum) * 0.25).toFixed(2);
-    let left_to_pay = parseFloat(sum) - +employer_pays;
-    if(parseInt(sum) >= 20.45){
-      sumElement.innerHTML = '20,45';
-      sum = '20.45';
-      let employer_pays2 =  (parseFloat(sum) * 0.25).toFixed(2);
-      let left_to_pay2 = parseFloat(sum) - +employer_pays2;
-      document.getElementById('employee_amount').innerText = (isNaN(+employer_pays2) == true) ? "0,00€" : employer_pays2.toString() + "€";
-      document.getElementById('you_pay_amount').innerText = (isNaN(left_to_pay2) == true) ? "0,00€" : left_to_pay2.toFixed(2).toString() + "€";
-       return;
-    }
-    sum = sum.replace('.', ',');
-    document.getElementById('employee_amount').innerText = (isNaN(+employer_pays) == true) ? "0,00€" : employer_pays.toString() + "€";
-    document.getElementById('you_pay_amount').innerText = (isNaN(left_to_pay) == true) ? "0,00€" : left_to_pay.toFixed(2).toString() + "€";
-    sumElement.innerHTML = sum;
   }
   return(
     <div className="grid grid-rows-4 grid-flow-col w-screen p-0 font-semibold flex bg-opacity-0 justify-center max-w-screen " style={{overflowX: 'hidden'}}>

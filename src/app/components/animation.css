@@ -3,7 +3,8 @@
   }
   
   .image-container {
-    animation: scroll 1000s linear infinite;
+    animation: scroll 10s linear infinite;
+    height: 15rem;
   }
   
   @keyframes scroll {
