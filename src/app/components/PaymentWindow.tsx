@@ -84,7 +84,7 @@ function SliderButton() {
                 const sum = document.getElementById('sum').innerHTML;
                 const currentDate = new Date();
                 const localOffset = currentDate.getTimezoneOffset() * 60000;
-                const localTime = new Date(currentDate - localOffset);
+                const localTime = new Date(+currentDate - localOffset);
                 const localISOString = localTime.toISOString();
                 const history = JSON.parse(localStorage.getItem('purchase_history')) || [];
                 
@@ -254,18 +254,18 @@ const NumberGrid = () => {
     }
     sum = sum.replace(',', '.');
     let employer_pays =  (parseFloat(sum) * 0.25).toFixed(2);
-    let left_to_pay = parseFloat(sum) - employer_pays;
+    let left_to_pay = parseFloat(sum) - +employer_pays;
     if(parseInt(sum) >= 20.45){
       sumElement.innerHTML = '20,45';
       sum = '20.45';
       let employer_pays2 =  (parseFloat(sum) * 0.25).toFixed(2);
-      let left_to_pay2 = parseFloat(sum) - employer_pays2;
-      document.getElementById('employee_amount').innerText = (isNaN(employer_pays2) == true) ? "0,00€" : employer_pays2.toString() + "€";
+      let left_to_pay2 = parseFloat(sum) - +employer_pays2;
+      document.getElementById('employee_amount').innerText = (isNaN(+employer_pays2) == true) ? "0,00€" : employer_pays2.toString() + "€";
       document.getElementById('you_pay_amount').innerText = (isNaN(left_to_pay2) == true) ? "0,00€" : left_to_pay2.toFixed(2).toString() + "€";
        return;
     }
     sum = sum.replace('.', ',');
-    document.getElementById('employee_amount').innerText = (isNaN(employer_pays) == true) ? "0,00€" : employer_pays.toString() + "€";
+    document.getElementById('employee_amount').innerText = (isNaN(+employer_pays) == true) ? "0,00€" : employer_pays.toString() + "€";
     document.getElementById('you_pay_amount').innerText = (isNaN(left_to_pay) == true) ? "0,00€" : left_to_pay.toFixed(2).toString() + "€";
     sumElement.innerHTML = sum;
   }
