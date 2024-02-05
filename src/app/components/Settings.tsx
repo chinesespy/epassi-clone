@@ -70,6 +70,12 @@ const SettingsPage = () => {
         }
     }
 
+    const HandleReset = () => {
+        
+        Notiflix.Notify.info('Resetoitut!');
+        localStorage.clear();
+    }
+
     return (
         <div className='h-screen'>
             {!contentLoaded && (
@@ -80,7 +86,7 @@ const SettingsPage = () => {
 
             {contentLoaded && (
                 <>
-                    <div className='bg-white'>
+                    <div className='bg-white pb-10'>
                         <button className='rounded flex flex-nowrap items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 to-orange-500 p-3 text-white font-semibold w-full mb-3' onClick={() => router.replace('/')}><ArrowLeftIcon className='w-5 h-5 mr-2'/> Takaisin</button>
                         <div className='bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 to-orange-500 rounded justify-evenly flex shadow-lg flex-wrap items-center justify-center'>
                             <div className="max-w-sm rounded overflow-hidden flex flex-wrap items-center">
@@ -154,7 +160,14 @@ const SettingsPage = () => {
                                 </div>
                                
                             </div>
+                            <div className="flex items-center justify-center pt-4 pb-1">
+                                <div className="w-[20rem] border-b border-neutral-300"></div>
+                            </div>
+                             <button onClick={HandleReset} id='restaraunt_btn' className="rounded-full font-semibold justify-center text-gray-100 p-1 m-5 border-2 border-gray-200 w-full flex flex-nowrap items-center" style={{transition: 'all ease-in-out'}}>
+                                Resetoi
+                            </button>
                         </div>
+                       
                     </div>
                 </>
             )}

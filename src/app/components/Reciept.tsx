@@ -31,7 +31,7 @@ const PurchaseInfos = () => {
     const router = useRouter();
     useEffect(() => {
        setYear((new Date).getFullYear().toString());
-       setmonth((new Date).toLocaleString('default', { month: 'long' }).toString());
+       setmonth((new Date).toLocaleString('en-US', { month: 'long' }).toString());
        return;
     }, []);
 

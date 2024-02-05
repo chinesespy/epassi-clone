@@ -96,21 +96,18 @@ const PaymentInformation = () => {
                 setConfirmationCode(JSON.parse(purchase_history).at(index[1]).confirmation_code);
         }
         const getCurrentTime = () => {
-            let now;
+            let now = new Date();
             if(localStorage.getItem('purchase_history')){
                 const url = document.URL.split('?');
                 if(url[1] !== undefined){
                     const index = url[1].split('=');
                     const purchase_history = localStorage.getItem('purchase_history') || '[]';
-                    if(purchase_history !== '[]')
+                    
+                    if(purchase_history !== '[]'){
                         now = new Date(JSON.parse(purchase_history).at(index[1]).timestamp);
-                    else
-                        now = new Date();
-                } else {
-                    now = new Date();
+                        now = new Date(now.getTime() - 60*60*2000)
+                    }
                 }
-            } else {
-                now = new Date();
             }
             const formattedTime = `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
             setCurrentTime(formattedTime);
@@ -129,23 +126,19 @@ const PaymentInformation = () => {
         getCurrentTime();
         return () => clearInterval(intervalId);
     }, []);
-
-    
-    let timestamp;
+    let timestamp = new Date();
     if (localStorage.getItem('purchase_history')) {
         const url = document.URL.split('?');
         if(url[1] !== undefined){
             const index = url[1].split('=');
             const purchase_history = localStorage.getItem('purchase_history') || '[]';
-            if(purchase_history !== '[]')
+            if(purchase_history !== '[]') {
                 timestamp = new Date(JSON.parse(purchase_history).at(index[1]).timestamp);
-            else
-                timestamp = new Date();
-        } else {
-            timestamp = new Date();
+                const localOffset = timestamp.getTimezoneOffset() * 60000;
+                const localTime = new Date(+timestamp - +localOffset);
+                timestamp = localTime;
+            }
         }
-    } else {
-        timestamp = new Date();
     }
 
     const twentyMinutesLater = new Date((timestamp.getTime() - 60 * 60 * 2000) + 16 * 60 * 1000); 
