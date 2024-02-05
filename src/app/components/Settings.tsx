@@ -35,36 +35,36 @@ const SettingsPage = () => {
 
     const HandleMoneySave = () => {
         if(document.getElementById('amount')){
-            const amount = document.getElementById('amount').value;
-            if(isNaN(amount) || amount == null || amount == '' || amount == undefined){
+            const amount = document.getElementById('amount') as HTMLInputElement | null;
+            if(isNaN(parseInt(amount.value)) || amount.value == null || amount.value == '' || amount.value == undefined){
                 Notiflix.Notify.failure('Syötetty määrä ei ole numero');
                 return;
             }
             console.log(amount)
-            localStorage.setItem('mymoney', amount + ",00");
+            localStorage.setItem('mymoney', amount.value + ",00");
             Notiflix.Notify.success('Tallenettu!');
         }
     }
     const HandleNameSave = () => {
         if(document.getElementById('name')){
-            const name = document.getElementById('name').value;
-            if(name == null || name == '' || name == undefined){
+            const name = document.getElementById('name') as HTMLInputElement | null;
+            if(name == null || name.value == '' || name.value == undefined){
                 Notiflix.Notify.failure('Syötetty nimi on tyhjä');
                 return;
             }
-            localStorage.setItem('name', name);
+            localStorage.setItem('name', name.value);
             Notiflix.Notify.success('Tallenettu!');
             
         }
     }
     const HandleRestarauntSave = () => {
         if(document.getElementById('restaraunt')){
-            const restaraunt = document.getElementById('restaraunt').value;
-            if(restaraunt == null || restaraunt == '' || restaraunt == undefined){
+            const restaraunt = document.getElementById('restaraunt') as HTMLInputElement | null;
+            if(restaraunt == null || restaraunt.value == '' || restaraunt.value == undefined){
                 Notiflix.Notify.failure('Syötetty ravintola on tyhjä');
                 return;
             }
-            localStorage.setItem('restaraunt', restaraunt);
+            localStorage.setItem('restaraunt', restaraunt.value);
             Notiflix.Notify.success('Tallenettu!');
              
         }

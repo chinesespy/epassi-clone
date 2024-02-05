@@ -37,7 +37,7 @@ const PurchaseInfos = () => {
 
     let info = [];
     const purchase_history = localStorage.getItem('purchase_history') || '[]';
-    let restaraunt = '', sum = '', timestamp = '', employer_amount = 0, expired = false, date = '';
+    let restaraunt = '', sum = '', timestamp = '', employer_amount = '', expired = false, date = '';
     
     if(localStorage.getItem('purchase_history')){
         const purchase_history_parsed = JSON.parse(purchase_history);
@@ -49,7 +49,7 @@ const PurchaseInfos = () => {
                 sum += ',00';
             }
           
-            employer_amount += (parseFloat(history_entry.sum.replace(',', '.')) * 0.25)
+            employer_amount += (parseFloat(history_entry.sum.replace(',', '.')) * 0.25).toString()
             let timestamp_;
             if (localStorage.getItem('purchase_history')) {
                 timestamp_ = new Date(history_entry.timestamp);
@@ -59,13 +59,13 @@ const PurchaseInfos = () => {
         
             const twentyMinutesLater = new Date((timestamp_.getTime() - 60 * 60 * 2000) + 16 * 60 * 1000); 
             const now = new Date();
-            const remainingTime = twentyMinutesLater - now;
-            let hours = twentyMinutesLater.getHours();
-            let minutes = twentyMinutesLater.getMinutes();
-            if (hours < 10) {
+            const remainingTime = +twentyMinutesLater - +now;
+            let hours = twentyMinutesLater.getHours().toString();
+            let minutes = twentyMinutesLater.getMinutes().toString();
+            if (parseInt(hours) < 10) {
                 hours = '0' + hours;
             }
-            if (minutes < 10) {
+            if (parseInt(minutes) < 10) {
                 minutes = '0' + minutes;
             }
             
@@ -81,7 +81,7 @@ const PurchaseInfos = () => {
             info.push({restaraunt, sum, timestamp, expired, date});
         })
 
-        employer_amount = employer_amount.toFixed(2).toString().replace('.', ',');
+        employer_amount = parseFloat(employer_amount).toFixed(2).toString().replace('.', ',').toString();
     }
 
     return (
