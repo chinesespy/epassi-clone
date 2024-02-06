@@ -7,6 +7,7 @@ import { ChevronUpIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useRouter } from "next/navigation";
 import { json } from "stream/consumers";
 import exp from "constants";
+import { time } from "console";
 const Header = () => {
     return (
         <div className="top-5 flex w-screen">
@@ -37,7 +38,7 @@ const PurchaseInfos = () => {
 
     let info = [];
     const purchase_history = localStorage.getItem('purchase_history') || '[]';
-    let restaraunt = '', sum = '', timestamp = '', employer_amount = '', expired = false, date = '';
+    let restaraunt = '', sum = '', timestamp = '', employer_amount = 0, employer_amount_text = '', expired = false, date = '';
     
     if(localStorage.getItem('purchase_history')){
         const purchase_history_parsed = JSON.parse(purchase_history);
@@ -49,7 +50,7 @@ const PurchaseInfos = () => {
                 sum += ',00';
             }
           
-            employer_amount += (parseFloat(history_entry.sum.replace(',', '.')) * 0.25).toString()
+            employer_amount += (parseFloat(history_entry.sum.replace(',', '.')) * 0.25)
             let timestamp_;
             if (localStorage.getItem('purchase_history')) {
                 timestamp_ = new Date(history_entry.timestamp);
@@ -70,6 +71,7 @@ const PurchaseInfos = () => {
             }
             
             timestamp = hours + ":" + minutes;
+            timestamp = timestamp.replace(' ', '')
             expired = false;
             if (remainingTime <= 0) {
                 expired = true;
@@ -81,7 +83,7 @@ const PurchaseInfos = () => {
             info.push({restaraunt, sum, timestamp, expired, date});
         })
 
-        employer_amount = parseFloat(employer_amount).toFixed(2).toString().replace('.', ',').toString();
+        employer_amount_text = employer_amount.toFixed(2).toString().replace('.', ',').toString();
     }
 
     return (
@@ -96,17 +98,17 @@ const PurchaseInfos = () => {
                     </div>
                     <div className="flex pl-5 pb-5 pt-2 flex-wrap">
                         <h1 className="text-xs text-neutral-500 w-full">Employer</h1>
-                        <h1 className="text-black font-bold text-lg pt-2">{employer_amount} €</h1>
+                        <h1 className="text-black font-bold text-lg pt-2">{employer_amount_text} €</h1>
                     </div>
                     <div className="w-full border-b border-neutral-300"></div>
                     <h1 className="text-sm font-bold text-black pl-3 pt-3 leading-10" style={{fontFamily: 'Inter,sans-serif'}}>{date}</h1>
                             
                     {JSON.parse(purchase_history).map((entry, index) => (
                         <>
-                            <div className="grid grid-cols-12 w-full p-3 gap-1 items-center text-nowrap max-h-[10rem]">
+                            <div key={index} className={`grid ${info.at(index).expired == true ? 'grid-cols-11' : 'grid-cols-12'} w-full p-3 gap-1 items-center text-nowrap max-h-[10rem]`}>
                                 { info.at(index).expired == true ? null : <div className="ml-[-1.2rem] h-[1.1rem] w-[1.1rem] bg-green-500 border-4 border-neutral-100 rounded-full"></div>}
-                                <div className="w-6 col-span-1"><KnifeAndForkIcon className="ml-[-1.5rem] w-6 h-6 text-black"/></div>
-                                <div className={`ml-[-1.5rem] ${ info.at(index).expired == true ? 'text-black': 'text-green-500'} flex flex-wrap justify-start font-semibold col-span-1 whitespace-nowrap text-nowrap`}> {info.at(index).restaraunt} <div className="text-nowrap text-sm text-gray-600 flex flex-nowrap whitespace-nowrap font-normal">{info.at(index).sum} €{info.at(index).expired == true ? null : `, Valid until ${info.at(index).timestamp}`}</div></div>
+                                <div className="w-6 col-span-1"><KnifeAndForkIcon className={`ml-[-${info.at(index).expired == true ? '1' : '1.5'}rem] w-6 h-6 text-black`}/></div>
+                                <div className={`ml-[${info.at(index).expired == true ? '-1' : '-1.5'}rem] ${ info.at(index).expired == true ? 'text-black': 'text-green-500'} flex flex-wrap justify-start font-semibold col-span-1 whitespace-nowrap text-nowrap`}> {info.at(index).restaraunt} <div className="text-nowrap text-sm text-gray-600 flex flex-nowrap whitespace-nowrap font-normal">{info.at(index).sum} €{info.at(index).expired == true ? null : `, Valid until ${info.at(index).timestamp}`}</div></div>
                                 <div className="flex justify-end w-[68vw]" onClick={() => router.replace(`/payment-done?id=${index}`) }><ChevronRightIcon className="w-5 h-5 mr-2"/></div>
                             </div>
                         </>

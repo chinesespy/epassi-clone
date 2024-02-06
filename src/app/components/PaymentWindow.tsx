@@ -258,15 +258,6 @@ const NumberGrid = () => {
       const employee_amount = document.getElementById('employee_amount');
       const you_pay_amount = document.getElementById('you_pay_amount');
       if(employee_amount && you_pay_amount){
-        if(parseInt(sum) >= 20.45){
-          sumElement.innerHTML = '20,45';
-          sum = '20.45';
-          let employer_pays2 =  (parseFloat(sum) * 0.25).toFixed(2);
-          let left_to_pay2 = parseFloat(sum) - +employer_pays2;
-          employee_amount.innerText = (isNaN(+employer_pays2) == true) ? "0,00€" : employer_pays2.toString() + "€";
-          you_pay_amount.innerText = (isNaN(left_to_pay2) == true) ? "0,00€" : left_to_pay2.toFixed(2).toString() + "€";
-          return;
-        }
         sum = sum.replace('.', ',');
         employee_amount.innerText = (isNaN(+employer_pays) == true) ? "0,00€" : employer_pays.toString() + "€";
         you_pay_amount.innerText = (isNaN(left_to_pay) == true) ? "0,00€" : left_to_pay.toFixed(2).toString() + "€";
