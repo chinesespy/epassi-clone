@@ -14,12 +14,13 @@ const Header = () => {
             <div className="justify-start p-3 pt-8">
                 <h1 className="font-extrabold text-2xl ">Purchases</h1>
 
-                <div className="grid grid-cols-4 flex justify-evenly text-normal font-semibold w-screen flex-nowrap items-center overflow-x-scroll w-screen">
+                <div className="grid grid-cols-4 flex justify-evenly text-normal font-semibold flex-nowrap items-center overflow-x-scroll w-screen" >
                     <div className="flex flex-nowrap items-center text-nowrap"><KnifeAndForkIcon className="w-5 h-5 mr-1"/>Lunch</div>
                     <div className="flex flex-nowrap items-center text-nowrap"><SneakerIcon className="w-5 h-5 mr-1"/>Sport</div>
                     <div className="flex flex-nowrap items-center text-nowrap"><CultureIcon className="w-5 h-5 mr-1"/>Culture</div>
-                    <div className="flex flex-nowrap items-center text-nowrap"><WellnessIcon className="w-5 h-5 p-[.1rem] mr-1"/>Wellbeing</div>
+                    <div className="flex flex-nowrap items-center text-nowrap"><WellnessIcon className="w-5 h-5 mr-1"/>Wellbeing</div>
                 </div>
+                <div className="w-[4.5rem] ml-1 rounded border-black" style={{borderWidth: '1.5px'}}></div>
             </div>
         </div>
     )
@@ -101,18 +102,24 @@ const PurchaseInfos = () => {
                         <h1 className="text-black font-bold text-lg pt-2">{employer_amount_text} €</h1>
                     </div>
                     <div className="w-full border-b border-neutral-300"></div>
-                    <h1 className="text-sm font-bold text-black pl-3 pt-3 leading-10" style={{fontFamily: 'Inter,sans-serif'}}>{date}</h1>
-                            
-                    {JSON.parse(purchase_history).map((entry, index) => (
-                        <>
-                            <div key={index} className={`grid ${info.at(index).expired == true ? 'grid-cols-11' : 'grid-cols-12'} w-full p-3 gap-1 items-center text-nowrap max-h-[10rem]`}>
-                                { info.at(index).expired == true ? null : <div className="ml-[-1.2rem] h-[1.1rem] w-[1.1rem] bg-green-500 border-4 border-neutral-100 rounded-full"></div>}
-                                <div className="w-6 col-span-1"><KnifeAndForkIcon className={`ml-[-${info.at(index).expired == true ? '1' : '1.5'}rem] w-6 h-6 text-black`}/></div>
-                                <div className={`ml-[${info.at(index).expired == true ? '-1' : '-1.5'}rem] ${ info.at(index).expired == true ? 'text-black': 'text-green-500'} flex flex-wrap justify-start font-semibold col-span-1 whitespace-nowrap text-nowrap`}> {info.at(index).restaraunt} <div className="text-nowrap text-sm text-gray-600 flex flex-nowrap whitespace-nowrap font-normal">{info.at(index).sum} €{info.at(index).expired == true ? null : `, Valid until ${info.at(index).timestamp}`}</div></div>
-                                <div className="flex justify-end w-[68vw]" onClick={() => router.replace(`/payment-done?id=${index}`) }><ChevronRightIcon className="w-5 h-5 mr-2"/></div>
-                            </div>
-                        </>
-                    ))}
+                    <div className="h-[20rem] w-full overflow-y-scroll overflow-x-hidden pt-2" style={{zIndex:0}}>
+                        <h1 className="text-sm font-bold text-black pl-3 pt-3 leading-10" style={{fontFamily: 'Inter,sans-serif'}}>{date}</h1>
+                        {JSON.parse(purchase_history).map((entry, index) => (
+                            <>
+                                <div key={index} className={`grid ${info.at(index).expired == true ? 'grid-cols-11' : 'grid-cols-11'} w-screen p-3 gap-1 items-center text-nowrap max-h-[10rem]`}>
+                                 { info.at(index).expired == true ? null : <div style={{zIndex: '11111'}} className="ml-[-1.2rem] h-[1.1rem] w-[1.1rem] bg-green-500 border-4 border-neutral-100 rounded-full absolute"></div>}
+                                    <div className="w-6 col-span-1"><KnifeAndForkIcon className={`ml-[-${info.at(index).expired == true ? '1' : '1.5'}rem] w-6 h-6 text-black`}/></div>
+                                    <div className={`ml-[${info.at(index).expired == true ? '-1' : '-1.5'}rem] ${ info.at(index).expired == true ? 'text-black': 'text-green-500'} flex flex-wrap justify-start font-semibold col-span-1 whitespace-nowrap text-nowrap`}> {info.at(index).restaraunt} <div className="text-nowrap text-sm text-gray-600 flex flex-nowrap whitespace-nowrap font-normal">{info.at(index).sum} €{info.at(index).expired == true ? null : `, Valid until ${info.at(index).timestamp}`}</div></div>
+                                    <div className="flex justify-end w-[68vw]" onClick={() => router.replace(`/payment-done?id=${index}`) }><ChevronRightIcon className="w-5 h-5 mr-2"/></div>
+                                </div>
+                                {index === JSON.parse(purchase_history).length - 1 ? 
+                                    <div className="pb-2"></div> : 
+                                    <div className="w-full border-b border-neutral-300 p-2"></div>
+                                }
+                                
+                            </>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

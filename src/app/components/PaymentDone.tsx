@@ -61,15 +61,15 @@ const MainInfo = () => {
 
     return (
         <>
-            <div className="container text-center relative mt-12 w-screen" style={{ overflowX: 'hidden' }}>
+            <div className="container text-center relative h-[190vmin] justify-center items-center flex w-screen" style={{ overflowX: 'hidden' }}>
                 <div className='w-screen'>
-                    <div className='mt-[2.5rem]'>
-                        <div className='flex justify-center align-top'>
+                    <div className='absolute inset-x-0 top-[8rem]'>
+                        <div className='flex justify-center'>
                             <img src='./epassi-logo-v2.svg' className='w-[7rem] pb-1'></img>
                         </div>
                         <span className='font-semibold flex text-sm justify-center pb-12'><CheckCircleIcon className='w-5 h-5 mr-3' /> PAYMENT APPROVED</span>
                     </div>
-                <h1 className='font-extrabold text-2xl mt-[8rem]'>{restaraunt}</h1>
+                <h1 className='font-extrabold text-2xl'>{restaraunt}</h1>
                 <h1 className='text-6xl font-semibold'>{paidAmount.replace('.', ',')}€</h1>
                 <a onClick={() => router.replace('/reciept')} className='flex flex-nowrap justify-center content-center items-center pt-6 underline'>Receipt<ChevronRightIcon className='w-3 h-3 text-black' /></a>
                 </div>
@@ -149,37 +149,40 @@ const PaymentInformation = () => {
     const minutes = Math.floor(remainingTime / (1000 * 60));
     const seconds = Math.floor((remainingTime / 1000) % 60);
     return (
-        <div className="container mt-20 pb-[2rem] relative shadow-lg " style={{ overflowX: 'hidden' }}>
-            <div className='w-screen'>
-                <div className='grid grid-cols-2 p-1'>
-                    <div className='flex justify-start font-bold ml-[3rem] text-nowrap'>Confirmation code</div>
-                    <div className='flex justify-end font-bold mr-[3rem]'>{confirmationCode}</div>
-                </div>
-                <div className='grid grid-cols-2 p-1'>
-                    <div className='flex justify-start ml-5 ml-[3rem]'>Person</div>
-                    <div className='flex justify-end mr-[3rem]'>{name}</div>
-                </div>
-                <div className='grid grid-cols-2 p-1'>
-                    <div className='flex justify-start ml-5 ml-[3rem]'>Time</div>
-                    <div className='flex justify-end mr-[3rem]'>{currentTime}</div>
-                </div>
-                <div className='grid grid-cols-2 p-1'>
-                    <div className='flex justify-start ml-5 ml-[3rem]'>Valid for</div>
-                    <div className={`flex justify-end mr-[3rem] ${passed == true ? 'text-red-500' : 'text-green-500'}`}>{passed == true ? 'Expired' : `${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`}</div>
+        <>
+            <div className="w-[80vw] border-b border-neutral-300 left-10 absolute bottom-[21rem]"></div>
+            <div className="container pb-[2rem] relative shadow-lg " style={{ overflowX: 'hidden' }}>
+                <div className='w-screen'>
+                    <div className='grid grid-cols-2 p-1'>
+                        <div className='flex justify-start font-bold ml-[3rem] text-nowrap'>Confirmation code</div>
+                        <div className='flex justify-end font-bold mr-[3rem]'>{confirmationCode}</div>
+                    </div>
+                    <div className='grid grid-cols-2 p-1'>
+                        <div className='flex justify-start ml-5 ml-[3rem]'>Person</div>
+                        <div className='flex justify-end mr-[3rem]'>{name}</div>
+                    </div>
+                    <div className='grid grid-cols-2 p-1'>
+                        <div className='flex justify-start ml-5 ml-[3rem]'>Time</div>
+                        <div className='flex justify-end mr-[3rem]'>{currentTime}</div>
+                    </div>
+                    <div className='grid grid-cols-2 p-1'>
+                        <div className='flex justify-start ml-5 ml-[3rem]'>Valid for</div>
+                        <div className={`flex justify-end mr-[3rem] ${passed == true ? 'text-red-500' : 'text-green-500'}`}>{passed == true ? 'Expired' : `${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`}</div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
 const RollingSVG = () => {
     return (
-        <div className='relative flex w-[120vw] left-[-4rem] h-[10rem]'>
+        <div className='relative flex w-[120vmin] left-[-4rem] h-[10rem]'>
             <div className="slider-container h-full">
                 <div className="image-container flex flex-nowrap">
                     <div className='flex flex-wrap relative -right-10 top-[-25rem]' id='img_container'>
                         {[...Array(34)].map((_, index) => (   
-                            <EPassiLogo key={index} className={`${index % 2 === 1 ? 'top-10' : ''} m-1 size-[7.5rem] p-1 relative`}/>        
+                            <EPassiLogo key={index} className={`${index % 2 === 1 ? 'top-10' : ''} m-1 p-1 relative`}/>        
                         ))}
                     </div>
                 </div>
@@ -211,13 +214,9 @@ export default function PaymentDone() {
                 <>
                     <Header />
                     <MainInfo />
-                   
-                    <div className='bottom-5 inset-x-0'>
-                    <div className="flex items-center justify-center mt-28 mb-[-3.75rem]">
-                        <div className="w-[22rem] border-b border-neutral-300"></div>
-                    </div>
-                    <PaymentInformation />
-                    <RollingSVG />
+                    <div className='absolute inset-x-0 bottom-5'>
+                        <PaymentInformation />
+                        <RollingSVG />
                     </div>
                 </>
             )}

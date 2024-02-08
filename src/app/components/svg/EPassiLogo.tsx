@@ -1,6 +1,6 @@
 const EPassiLogo = ({className}) => {
     return (
-        <svg viewBox="194.1195 172.9018 67.2916 74.5007" className={className} xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="194.1195 172.9018 67.2916 74.5007" style={{width: '27vmin'}} className={className} xmlns="http://www.w3.org/2000/svg">
             <defs>
             <linearGradient id="paint0_linear" x1="36.875" y1="100.306" x2="39.237" y2="10.795" gradientUnits="userSpaceOnUse"><stop stopColor="#FF612F"/><stop offset=".397" stopColor="#E5007D"/><stop offset=".7" stopColor="#6C10B9"/><stop offset=".8" stopColor="#3B9CDB"/></linearGradient>
             </defs>
