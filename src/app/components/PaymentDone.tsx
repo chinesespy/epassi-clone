@@ -177,7 +177,7 @@ const PaymentInformation = () => {
 
 const RollingSVG = () => {
     return (
-        <div className='relative flex w-[120vmin] left-[-4rem] h-[10rem]'>
+        <div className='relative flex w-[120vmin] left-[-4rem] h-[40vmin]'>
             <div className="slider-container h-full">
                 <div className="image-container flex flex-nowrap">
                     <div className='flex flex-wrap relative -right-10 top-[-25rem]' id='img_container'>
@@ -214,7 +214,7 @@ export default function PaymentDone() {
                 <>
                     <Header />
                     <MainInfo />
-                    <div className='absolute inset-x-0 bottom-5'>
+                    <div className='absolute inset-x-0 bottom-0'>
                         <PaymentInformation />
                         <RollingSVG />
                     </div>
