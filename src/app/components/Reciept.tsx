@@ -129,7 +129,7 @@ const Reciept = () => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setContentLoaded(true);
-        }, 1500);
+        }, 2400);
         return () => clearTimeout(timeout);
     }, []);
     return (

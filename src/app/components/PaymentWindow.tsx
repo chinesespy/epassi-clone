@@ -319,7 +319,7 @@ export default function InputSum(){
   useEffect(() => {
       const timeout = setTimeout(() => {
           setContentLoaded(true);
-      }, 750);
+      }, 2400);
       return () => clearTimeout(timeout);
   }, []);
     return (

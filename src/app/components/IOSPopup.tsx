@@ -27,6 +27,9 @@ const IOSPopupButton: React.FC<IOSButtonProps> = ({title, bold, optional_class, 
 }
 
 const IOSPopup: React.FC<IOSProps> = ({title, description, type, id, show_on_load}) => {
+    useEffect(() => {
+
+    })
     return (
         <>
             <div className={`h-screen flex items-center justify-center bg-black bg-opacity-25 w-screen fixed top-0 ios-widget`} style={{display: `${show_on_load == 0 ? 'none' : 'flex'}`, zIndex: '9999'}} id={`ios_popup_widget_${id}`}>
