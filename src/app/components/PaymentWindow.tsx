@@ -4,6 +4,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { XMarkIcon, ArrowUpIcon, InformationCircleIcon, BackspaceIcon } from '@heroicons/react/24/outline'
 import {useRouter} from 'next/navigation';
+import IOSPopup from './IOSPopup';
+import { setInterval } from 'timers/promises';
+
+
 function SliderButton() {
     const [isDragging, setIsDragging] = useState(false);
     const sliderRef = useRef(null);
@@ -77,7 +81,6 @@ function SliderButton() {
     
           if (sliderCompRect.left - sliderRect.left > 0.75 * maxPosition) {
             sliderComp.current.style.left = `${maxPosition}px`;
-            if(document.getElementById('sum')?.innerHTML !== ""){
               if(localStorage.getItem('mymoney')){
                 let sum = document.getElementById('sum').innerHTML;
                 const currentDate = new Date();
@@ -98,14 +101,25 @@ function SliderButton() {
                   "timestamp": localISOString,
                   "confirmation_code": generate_confirm()
                 }
-                history.push(json_object);
-                localStorage.setItem('purchase_history', JSON.stringify(history));
-                localStorage.setItem('mymoney', (parseFloat(localStorage.getItem('mymoney').replace(',', '.')) - parseFloat(sum.replace(',', '.'))).toFixed(2).toString());
-                router.push('/payment-done?id=' + (history.length - 1));
-              }
-             
-            }
 
+                document.getElementById('ios_popup_widget_1').style.display = 'flex';
+                const elementIds = ['ios_popup_btn_Confirm; dont ask me again', 'ios_popup_btn_Confirm'];
+                const handleClick = () => {
+                    history.push(json_object);
+                    localStorage.setItem('purchase_history', JSON.stringify(history));
+                    localStorage.setItem('mymoney', (parseFloat(localStorage.getItem('mymoney').replace(',', '.')) - parseFloat(sum.replace(',', '.'))).toFixed(2).toString());
+                    router.push('/payment-done?id=' + (history.length - 1));
+                };
+                
+                elementIds.forEach(id => {
+                    document.getElementById(id).addEventListener('click', handleClick);
+                });
+
+                document.getElementById('ios_popup_btn_Cancel').onclick = () => {
+                  sliderComp.current.style.left = `5px`;
+                  return;
+                }
+            }
           } else {
             sliderComp.current.style.left = '5px';
           }
@@ -298,6 +312,7 @@ export default function InputSum(){
       return () => clearTimeout(timeout);
   }, []);
     return (
+      <>
         <div className='h-screen'>
             {!contentLoaded && (
               <div className='h-screen w-12 flex items-center justify-center'>
@@ -322,5 +337,7 @@ export default function InputSum(){
               </>
             )}
         </div>
+        <IOSPopup title="Confirm the payment?" description="The receipt is valid for 15 minutes after confirming the payment" type={1} id={1} show_on_load={0}/>
+        </>
     );
 } 

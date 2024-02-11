@@ -5,9 +5,7 @@ import Footer from '@/app/components/Footer'
 import {KnifeAndForkIcon, SneakerIcon, WellnessIcon, CultureIcon} from '@/app/components/svg/FooterSVG';
 import { ChevronUpIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useRouter } from "next/navigation";
-import { json } from "stream/consumers";
-import exp from "constants";
-import { time } from "console";
+
 const Header = () => {
     return (
         <div className="top-5 flex w-screen">
@@ -135,7 +133,10 @@ const Reciept = () => {
         return () => clearTimeout(timeout);
     }, []);
     return (
+        <>
+      
         <div className='h-screen'>
+            
             {!contentLoaded && (
             <div className='h-screen w-12 flex items-center justify-center'>
                     <div className="flex loader"></div>
@@ -150,7 +151,8 @@ const Reciept = () => {
                 </>  
             )}
           
-        </div>
+        </div>  
+        </>
     );
 }
 
