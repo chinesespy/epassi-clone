@@ -101,9 +101,15 @@ function SliderButton() {
                   "timestamp": localISOString,
                   "confirmation_code": generate_confirm()
                 }
-
-                document.getElementById('ios_popup_widget_1').style.display = 'flex';
-                const elementIds = ['ios_popup_btn_Confirm; dont ask me again', 'ios_popup_btn_Confirm'];
+                if(localStorage.getItem('dont_ask_on_payment') == undefined){
+                  document.getElementById('ios_popup_widget_1').style.display = 'flex';  
+                } else {
+                  history.push(json_object);
+                  localStorage.setItem('purchase_history', JSON.stringify(history));
+                  localStorage.setItem('mymoney', (parseFloat(localStorage.getItem('mymoney').replace(',', '.')) - parseFloat(sum.replace(',', '.'))).toFixed(2).toString());
+                  router.push('/payment-done?id=' + (history.length - 1));
+                }
+                const elementIds = ['ios_popup_btn_Confirm'];
                 const handleClick = () => {
                     history.push(json_object);
                     localStorage.setItem('purchase_history', JSON.stringify(history));
@@ -114,6 +120,11 @@ function SliderButton() {
                 elementIds.forEach(id => {
                     document.getElementById(id).addEventListener('click', handleClick);
                 });
+
+                document.getElementById('ios_popup_btn_Confirm; dont ask me again').onclick = () => {
+                    localStorage.setItem('dont_ask_on_payment', '');
+                    handleClick();
+                }
 
                 document.getElementById('ios_popup_btn_Cancel').onclick = () => {
                   sliderComp.current.style.left = `5px`;
