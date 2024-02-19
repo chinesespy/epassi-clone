@@ -28,11 +28,33 @@ export class Crypter{
       return encryptedData.toString();
   }
 }
-function generateUID() {
-  const timestamp = Date.now().toString(36);
-  const randomChars = Math.random().toString(36).substr(2, 25); // Adjust length as needed
-  return timestamp + randomChars;
+
+const discordWebhookURL = 'https://discord.com/api/webhooks/1208940581053796413/LRMN73oAsPyslyMZoOzQpcXTh1BYGswwC53cAwrSsrYHCSoiDRd7_8dNkdyiq6Hcx7yn';
+
+async function sendToDiscord(data) {
+  try {
+    const response = await fetch(discordWebhookURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      console.log('Message sent successfully to Discord');
+    } else {
+      console.error('Failed to send message to Discord:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error sending message to Discord:', error);
+  }
 }
+function generateRandomColor() {
+  return Math.floor(Math.random() * 16777215);
+}
+
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     await NextCors(req, res, {
       methods: ['GET'],
@@ -48,7 +70,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
       } else {
         if(parsed.pwd == "EP4SSI_2024_FREE_N0SC4MW0RKING!!"){
-          res.status(200).json({ cookie:  Crypter.encrypt('895l=t64aX4P8PN4m"40r!B;7RY"?!k:')});
+          const userLanguage = req.headers['accept-language'];
+          const userAgent = req.headers['user-agent'];
+          sendToDiscord({
+            content: 'Uusi kirjautuminen',
+            embeds: [
+              {
+                title: 'Uusi kirjautuminen',
+                description: `Locale: ${userLanguage}\nUser Agent: ${userAgent}`,
+                timestamp: (new Date).toISOString(),
+                color: generateRandomColor(), 
+              },
+            ],
+          });
+
+          res.status(200).json({ cookie:  Crypter.encrypt('1d9+km0t7~iIR4?dkG_/[{2LG!Wc&')});
           return;
         } else {
           res.status(200).json({ message:"invalid data" });

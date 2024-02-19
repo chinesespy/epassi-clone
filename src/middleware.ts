@@ -40,7 +40,7 @@ export function middleware(request: NextRequest) {
           return NextResponse.rewrite(new URL('/login', request.url))
         } else {
           try {
-            if(Crypter.decrypt(idCookie) !== '895l=t64aX4P8PN4m"40r!B;7RY"?!k:'){
+            if(Crypter.decrypt(idCookie) !== '1d9+km0t7~iIR4?dkG_/[{2LG!Wc&'){
               cookies.delete('access');
               return NextResponse.rewrite(new URL('/login', request.url))
             }
