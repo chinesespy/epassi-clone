@@ -37,7 +37,7 @@ const PurchaseInfos = () => {
 
     let info = [];
     const purchase_history = localStorage.getItem('purchase_history') || '[]';
-    let restaraunt = '', sum = '', timestamp = '', employer_amount = 0, employer_amount_text = '', expired = false, date = '';
+    let restaraunt = '', sum = '', timestamp = '', employer_amount = 0, employer_amount_text = '0', expired = false, date = '';
     
     if(localStorage.getItem('purchase_history')){
         const purchase_history_parsed = JSON.parse(purchase_history);
@@ -93,11 +93,11 @@ const PurchaseInfos = () => {
                 <div className="w-[95vw] rounded-lg bg-white">
                     <div className="grid grid-cols-2">
                         <h1 className="font-bold text-2xl flex items-center justify-start flex-nowrap text-sm p-3"><ChevronUpIcon className="w-5 h-5 mr-2" strokeWidth="2.5px"/> {month}</h1>
-                        <h1 className="font-semibold text-2xl flex items-center justify-end flex-nowrap text-sm p-3 text-gray-500">{info.length} Payment{info.length >= 2 ? 's' : null}</h1>
+                        <h1 className="font-semibold text-2xl flex items-center justify-end flex-nowrap text-sm p-3 text-gray-500">{info.length} Payment{info.length != 1 ? 's' : null}</h1>
                     </div>
                     <div className="flex pl-5 pb-5 pt-2 flex-wrap">
                         <h1 className="text-xs text-neutral-500 w-full">Employer</h1>
-                        <h1 className="text-black font-bold text-lg pt-2">{employer_amount_text} €</h1>
+                        <h1 className="text-black font-bold text-lg pt-2">{employer_amount_text}€</h1>
                     </div>
                     <div className="w-full border-b border-neutral-300"></div>
                     <div className="h-[20rem] w-full overflow-y-scroll overflow-x-hidden pt-2" style={{zIndex:0}}>
@@ -105,7 +105,7 @@ const PurchaseInfos = () => {
                         {JSON.parse(purchase_history).map((entry, index) => (
                             <>
                                 <div key={index} className={`grid ${info.at(index).expired == true ? 'grid-cols-11' : 'grid-cols-11'} w-screen p-3 gap-1 items-center text-nowrap max-h-[10rem]`}>
-                                 { info.at(index).expired == true ? null : <div style={{zIndex: '11111'}} className="ml-[-1.2rem] h-[1.1rem] w-[1.1rem] bg-green-500 border-4 border-neutral-100 rounded-full absolute"></div>}
+                                 { info.at(index).expired == true ? null : <div style={{zIndex: '11111'}} className="ml-[-1.2rem] h-[1.1rem] w-[1.1rem] mt-[0.75rem] bg-green-500 border-4 border-neutral-100 rounded-full absolute"></div>}
                                     <div className="w-6 col-span-1"><KnifeAndForkIcon className={`ml-[-${info.at(index).expired == true ? '1' : '1.5'}rem] w-6 h-6 text-black`}/></div>
                                     <div className={`ml-[${info.at(index).expired == true ? '-1' : '-1.5'}rem] ${ info.at(index).expired == true ? 'text-black': 'text-green-500'} flex flex-wrap justify-start font-semibold col-span-1 whitespace-nowrap text-nowrap`}> {info.at(index).restaraunt} <div className="text-nowrap text-sm text-gray-600 flex flex-nowrap whitespace-nowrap font-normal">{info.at(index).sum} €{info.at(index).expired == true ? null : `, Valid until ${info.at(index).timestamp}`}</div></div>
                                     <div className="flex justify-end w-[68vw]" onClick={() => router.replace(`/payment-done?id=${index}`) }><ChevronRightIcon className="w-5 h-5 mr-2"/></div>

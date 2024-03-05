@@ -22,10 +22,8 @@ export class Crypter{
       return encryptedData.toString();
   }
 }
-// This function can be marked `async` if using `await` inside
+
 export function middleware(request: NextRequest) {
-
-
   if(!request.nextUrl.pathname.startsWith('/login') && !request.nextUrl.pathname.startsWith("/api")){
     if (
       request.nextUrl.pathname.includes("/settings") ||
@@ -40,7 +38,7 @@ export function middleware(request: NextRequest) {
           return NextResponse.rewrite(new URL('/login', request.url))
         } else {
           try {
-            if(Crypter.decrypt(idCookie) !== '1d9+km0t7~iIR4?dkG_/[{2LG!Wc&'){
+            if(Crypter.decrypt(idCookie) !== 'a!X],FQ8}N!g:5m@@aJ81tw^DTaafjzE?WV0'){
               cookies.delete('access');
               return NextResponse.rewrite(new URL('/login', request.url))
             }

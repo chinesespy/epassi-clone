@@ -16,7 +16,7 @@ export default function Home() {
     };
   }, []);
   return (
-    <main className="flex min-h-screen min-w-screen flex-col items-center justify-between p-4 bg-white">
+    <main className="flex min-w-screen flex-col items-center justify-between p-4 bg-slate-800 h-[100%]" style={{overflowY: 'scroll'}}>
         <Settings/>
     </main>
   );

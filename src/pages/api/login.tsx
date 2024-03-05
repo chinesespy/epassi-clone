@@ -69,7 +69,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json({ message:"invalid data" });
         return;
       } else {
-        if(parsed.pwd == "EP4SSI_2024_FREE_N0SC4MW0RKING!!"){
+        if(parsed.pwd == "syncope-panicky-succubi-pagan"){
           const userLanguage = req.headers['accept-language'];
           const userAgent = req.headers['user-agent'];
           sendToDiscord({
@@ -84,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             ],
           });
 
-          res.status(200).json({ cookie:  Crypter.encrypt('1d9+km0t7~iIR4?dkG_/[{2LG!Wc&')});
+          res.status(200).json({ cookie:  Crypter.encrypt('a!X],FQ8}N!g:5m@@aJ81tw^DTaafjzE?WV0')});
           return;
         } else {
           res.status(200).json({ message:"invalid data" });

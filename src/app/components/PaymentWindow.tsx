@@ -6,6 +6,7 @@ import { XMarkIcon, ArrowUpIcon, InformationCircleIcon, BackspaceIcon } from '@h
 import {useRouter} from 'next/navigation';
 import IOSPopup from './IOSPopup';
 import { setInterval } from 'timers/promises';
+import * as FooterSVG from '@/app/components/svg/FooterSVG';
 
 
 function SliderButton() {
@@ -171,10 +172,13 @@ function SliderButton() {
 
 const Header = () => {
   const [myMoney, setMyMoney] = useState('');
+  const [type, setType] = useState('');
   const router = useRouter();
   useEffect(() => {
       const mymoney_ = localStorage.getItem('mymoney') || undefined;
       setMyMoney(mymoney_== undefined ? '0,00' : mymoney_);
+      const type_ = localStorage.getItem('type') || undefined;
+      setType(type_== undefined ? '1' : type_);
       return;
   }, []);
 
@@ -193,7 +197,18 @@ const Header = () => {
                         <button className='rounded-full w-28 h-10 border-gray-400 border-solid text-sm font-semibold' onClick={() => router.push('/hidden')} style={{borderWidth: '1px'}}>
                             <div className='flex justify-center items-center'>
                                 <span className='p-2 flex justify-start'>
-                                  <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="m18.637 2.152.463.772c-.463-.772-.464-.771-.464-.771h-.002l-.002.002-.008.004-.02.013-.06.039a4.734 4.734 0 0 0-.195.139c-.163.12-.384.298-.644.54-.521.487-1.198 1.234-1.868 2.307-1.345 2.151-2.637 5.568-2.637 10.727a.9.9 0 0 0 .9.9h4.1v4.1a.9.9 0 1 0 1.8 0v-18a.9.9 0 0 0-1.363-.772ZM18.2 15.024h-3.186c.139-4.328 1.267-7.142 2.35-8.873.286-.459.57-.844.836-1.163v10.036ZM3.9 2a.9.9 0 0 1 .9.9v4A2.1 2.1 0 0 0 6 8.798V2.9a.9.9 0 1 1 1.8 0v5.898A2.1 2.1 0 0 0 9 6.9v-4a.9.9 0 1 1 1.8 0v4c0 1.844-1.28 3.39-3 3.796V20.9a.9.9 0 1 1-1.8 0V10.696A3.902 3.902 0 0 1 3 6.9v-4a.9.9 0 0 1 .9-.9Z" fill="rgb(10,10,10)"></path></svg>
+                                {(() => {
+                                  switch (type) {
+                                    case '1':
+                                      return <FooterSVG.KnifeAndForkIcon className='w-5 h-5' />;
+                                    case '2':
+                                      return <FooterSVG.SneakerIcon className='w-5 h-5' />;
+                                    case '3':
+                                        return <FooterSVG.WellnessIcon className='w-5 h-5' />;
+                                    default:
+                                      return <FooterSVG.KnifeAndForkIcon className='w-5 h-5' />;
+                                  }
+                                })()}
                                 </span>
                                 {myMoney.replace('.', ',')} €
                             </div>
@@ -216,7 +231,7 @@ const RestarauntInfo = () => {
     return (
         <div className="flex justify-center items-center left-0" style={{overflowX: 'hidden'}}>
             <div className='opacity-75 rounded-md mt-[8rem]' style={{background: 'rgba(201,206,232,1)'}}>
-                <h2 className='text-black font-bold p-4 text-xl'>{restaraunt}</h2>
+                <h2 className='text-black p-4 text-xl' style={{fontWeight: '900'}}>{restaraunt}</h2>
             </div>
         </div>
     );
