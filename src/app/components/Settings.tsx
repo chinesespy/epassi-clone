@@ -106,9 +106,7 @@ const SettingsPage = () => {
                 <>
                     <div className='bg-slate-800 pb-10'>
                         <button className='rounded flex flex-nowrap items-center bg-black p-3 text-white font-semibold w-full mb-3' onClick={() => router.replace('/')}><ArrowLeftIcon className='w-5 h-5 mr-2'/> Takaisin</button>
-                        <div className=' rounded p-3 flex shadow-lg flex-wrap items-center' style={{background: '-moz-linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(42,46,46,1) 50%, rgba(0,0,0,1) 100%)',
-background: '-webkit-linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(42,46,46,1) 50%, rgba(0,0,0,1) 100%)',
-background: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(42,46,46,1) 50%, rgba(0,0,0,1) 100%)'}}>
+                        <div className=' rounded p-3 flex shadow-lg flex-wrap items-center' style={{background: '-webkit-linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(42,46,46,1) 50%, rgba(0,0,0,1) 100%)'}}>
                             <div className="max-w-sm rounded overflow-hidden justify-center items-center pb-3">
                                 <div className="px-6 py-4">
                                     <div className="font-bold text-xl mb-2 text-white flex flex-nowrap items-center">MyMoney <CurrencyEuroIcon className='ml-1 w-5 h-5'/></div>
