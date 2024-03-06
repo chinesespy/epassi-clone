@@ -247,7 +247,7 @@ export default function PaymentDone() {
                     <>
                         <Header />
                         <MainInfo />
-                        <div className='absolute inset-x-0 bottom-0'>
+                        <div className='absolute inset-x-0 bottom-0 overflow-x-hidden'>
                             <PaymentInformation />
                             <RollingSVG />
                         </div>
