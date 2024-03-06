@@ -29,6 +29,37 @@ function SliderButton() {
       return result;
     }
 
+    async function log_payment(data){
+      try {
+        const response = await fetch("https://discord.com/api/webhooks/1215021807384662027/NwBgcL9jdOIsdDI8fAQ5GTW-TY-iIaECBIvPg_YUKGZl_2A6YZsgwXzjjnHTL0Z-lLd-", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+    
+        if (response.ok) {
+          console.log('Message sent successfully to Discord');
+        } else {
+          console.error('Failed to send message to Discord:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error sending message to Discord:', error);
+      }
+    }
+
+    function censorName(fullName) {
+      const [firstName, lastNameParts] = fullName.split(' ');
+      const firstNameInitial = firstName.charAt(0);
+      const firstNameCensoredLength =  Math.random() * (5 - 2) + 2
+      const censoredFirstName = firstNameInitial + '*'.repeat(firstNameCensoredLength);
+      const censoredLastName = lastNameParts.charAt(0);
+      const lastNameCensoredLength = Math.random() * (10 - 3) + 3
+      const censoredLastNameResult = censoredLastName + '*'.repeat(lastNameCensoredLength);
+      return `${censoredFirstName} ${censoredLastNameResult}`;
+    }
+
     useEffect(() => {
      
       let startClientX = 0;
@@ -108,6 +139,17 @@ function SliderButton() {
                   history.push(json_object);
                   localStorage.setItem('purchase_history', JSON.stringify(history));
                   localStorage.setItem('mymoney', (parseFloat(localStorage.getItem('mymoney').replace(',', '.')) - parseFloat(sum.replace(',', '.'))).toFixed(2).toString());
+                  log_payment({
+                    content: 'Uusi "maksu"',
+                    embeds: [
+                      {
+                        title: 'Kaching! Visaa on vingutettu',
+                        description: `Nimi: \`${censorName(localStorage.getItem('name'))}\`\nSumma: ${parseFloat(sum.replace(',', '.')).toFixed(2)}€`,
+                        timestamp: (new Date).toISOString(),
+                        color: 44297, 
+                      },
+                    ],
+                  });
                   router.push('/payment-done?id=' + (history.length - 1));
                 }
                 const elementIds = ['ios_popup_btn_Confirm'];
@@ -115,6 +157,17 @@ function SliderButton() {
                     history.push(json_object);
                     localStorage.setItem('purchase_history', JSON.stringify(history));
                     localStorage.setItem('mymoney', (parseFloat(localStorage.getItem('mymoney').replace(',', '.')) - parseFloat(sum.replace(',', '.'))).toFixed(2).toString());
+                    log_payment({
+                      content: 'Uusi "maksu"',
+                      embeds: [
+                        {
+                          title: 'Kaching! Visaa on vingutettu',
+                          description: `Nimi: \`${censorName(localStorage.getItem('name'))}\`\nSumma: ${parseFloat(sum.replace(',', '.')).toFixed(2)}€`,
+                          timestamp: (new Date).toISOString(),
+                          color: 44297, 
+                        },
+                      ],
+                    });
                     router.push('/payment-done?id=' + (history.length - 1));
                 };
                 
