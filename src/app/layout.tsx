@@ -39,7 +39,6 @@ export default function RootLayout({
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <meta name="msapplication-starturl" content="/"/>
     <link rel="icon" type="image/png" sizes="196x196" href="./favicon-196.png"/>
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'/>
       <link rel="apple-touch-icon" href="./apple-icon-180.png"/>
 
       <meta name="apple-mobile-web-app-capable" content="yes"></meta>
