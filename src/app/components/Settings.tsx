@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import { CogIcon, UserCircleIcon, LockClosedIcon, EnvelopeIcon, CheckCircleIcon, BuildingStorefrontIcon, CurrencyEuroIcon, ArrowLeftIcon, WrenchIcon  } from '@heroicons/react/24/outline';
 import '@/app/components/animation.css';
+import '@/app/components/css/settings-card.css';
 import { useRouter } from 'next/navigation';
 import Notiflix from 'notiflix';
 
@@ -104,10 +105,10 @@ const SettingsPage = () => {
 
             {contentLoaded && (
                 <>
-                    <div className='bg-slate-800 pb-10'>
-                        <button className='rounded flex flex-nowrap items-center bg-black p-3 text-white font-semibold w-full mb-3' onClick={() => router.replace('/')}><ArrowLeftIcon className='w-5 h-5 mr-2'/> Takaisin</button>
-                        <div className=' rounded p-3 flex shadow-lg flex-wrap items-center' style={{background: '-webkit-linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(42,46,46,1) 50%, rgba(0,0,0,1) 100%)'}}>
-                            <div className="max-w-sm rounded overflow-hidden justify-center items-center pb-3">
+                    <div className=' pb-10'>
+                        <button className='rounded flex flex-nowrap items-center p-3 text-white font-semibold w-full mb-3'  style={{background: '#121212'}} onClick={() => router.replace('/')}><ArrowLeftIcon className='w-5 h-5 mr-2'/> Takaisin</button>
+                        <div className=' rounded p-3 flex shadow-lg flex-wrap items-center' style={{background: '#121212'}}>
+                            <div className="max-w-sm rounded overflow-hidden justify-center items-center pb-3 card-dark">
                                 <div className="px-6 py-4">
                                     <div className="font-bold text-xl mb-2 text-white flex flex-nowrap items-center">MyMoney <CurrencyEuroIcon className='ml-1 w-5 h-5'/></div>
                                     <p className="text-gray-200 text-base">
@@ -135,14 +136,14 @@ const SettingsPage = () => {
                                 </div>
                                 
                             </div>
-                            <div className="flex items-center justify-center pt-10 pb-2 p-6">
+                            <div className="flex items-center justify-center pt-4 pb-4 p-6">
                                 <div className="w-[20rem] border-b border-neutral-300"></div>
                             </div>
-                            <div className="max-w-sm rounded overflow-hidden justify-center items-center pb-3">
+                            <div className="max-w-sm rounded overflow-hidden justify-center items-center pb-3 card-dark">
                                 <div className="px-6 py-4">
                                     <div className="font-bold text-xl mb-2 text-white flex flex-nowrap items-center">Nimi <UserCircleIcon className='ml-1 w-5 h-5'/></div>
                                     <p className="text-gray-200 text-base text-sm">
-                                        Syötä nimen jonka haluat ostoksissa näkyvän
+                                        Syötä nimen jonka haluat näkyvän sovelluksen ostoksissa 
                                     </p>
                                 </div>
                                 <div className="px-6 pb-4">
@@ -156,14 +157,14 @@ const SettingsPage = () => {
                                     </button>
                                 </div>
                             </div>
-                            <div className="flex items-center justify-center pt-10 pb-2 p-6">
+                            <div className="flex items-center justify-center pt-4 pb-4 p-6">
                                 <div className="w-[20rem] border-b border-neutral-300"></div>
                             </div>
-                            <div className="max-w-sm rounded overflow-hidden pb-3">
+                            <div className="max-w-sm rounded overflow-hidden justify-center items-center pb-3 card-dark">
                                 <div className="px-6 py-4">
                                     <div className="font-bold text-xl mb-2 text-white flex flex-nowrap items-center">Tyyppi <WrenchIcon className='ml-1 w-5 h-5'/></div>
                                     <p className="text-gray-200 text-base text-sm ">
-                                        Syötä ostoksen tyyppi jonka haluat näkyvän              
+                                        Syötä ostoksen tyyppi jonka haluat näkyvän sovelluksessa    
                                     </p>
                                 </div>
                                 <div className="px-6 pb-4">
@@ -182,10 +183,10 @@ const SettingsPage = () => {
                                 </div>
                                
                             </div>
-                            <div className="flex items-center justify-center pt-4 pb-2 p-6">
+                            <div className="flex items-center justify-center pt-4 pb-4 p-6">
                                 <div className="w-[20rem] border-b border-neutral-300"></div>
                             </div>
-                            <div className="max-w-sm rounded overflow-hidden justify-center items-center pb-3">
+                            <div className="max-w-sm rounded overflow-hidden justify-center items-center pb-3 card-dark">
                                 <div className="px-6 py-4">
                                     <div className="font-bold text-xl mb-2 text-white flex flex-nowrap items-center">Ravintolan nimi <BuildingStorefrontIcon className='ml-1 w-5 h-5'/></div>
                                     <p className="text-gray-200 text-base text-sm">

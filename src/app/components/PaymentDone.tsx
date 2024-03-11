@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { XMarkIcon, CheckCircleIcon, ChevronRightIcon, XCircleIcon } from '@heroicons/react/24/outline'
 import '@/app/components/animation.css';
+import '@/app/components/css/font.css';
 import EPassiLogo from './svg/EPassiLogo';
 import { useRouter } from 'next/navigation';
 import IOSPopup from './IOSPopup';
@@ -26,14 +27,14 @@ const Header = () => {
             <div className="grid grid-cols-2">
                 <div className="flex justify-start">
                     <div className="p-3">
-                        <button className='rounded-full w-8 h-8 border-gray-400 border-solid p-1' onClick={() => router.replace('/')} style={{ borderWidth: '1px' }}>
+                        <button className='rounded-full w-8 h-8 border-gray-300 border-solid p-1' onClick={() => router.replace('/')} style={{ borderWidth: '1px' }}>
                             <XMarkIcon className='text-black' />
                         </button>
                     </div>
                 </div>
                 <div className="flex justify-end">
                     <div className="p-3">
-                        <button className='rounded-full w-28 h-10 border-gray-400 border-solid text-sm font-semibold' onClick={() => router.replace('/hidden')} style={{ borderWidth: '1px' }}>
+                        <button className='rounded-full w-28 h-10 border-gray-300 border-solid text-sm font-semibold' onClick={() => router.replace('/hidden')} style={{ borderWidth: '1px' }}>
                             <div className='flex justify-center items-center'>
                                 <span className='p-2 flex justify-start'>
                                 {(() => {
@@ -100,9 +101,9 @@ const MainInfo = () => {
                         <span className='font-semibold flex text-sm justify-center pb-12' id='payment_status'><CheckCircleIcon className='w-5 h-5 mr-3' /> PAYMENT APPROVED</span>
                     </div>
                     <div className='mt-[16vmin]'>
-                        <h1 className='font-extrabold text-2xl'>{restaraunt}</h1>
-                        <h1 className='text-6xl font-semibold'>{paidAmount.replace('.', ',')}€</h1>
-                        <a onClick={() => router.replace('/reciept')} className='flex flex-nowrap justify-center content-center items-center pt-6 underline'>Receipt<ChevronRightIcon className='w-3 h-3 text-black' /></a>
+                        <h1 className='font-extrabold' style={{fontFamily: "Poppins", fontSize: "2rem"}}>{restaraunt}</h1>
+                        <h1 className='font-bold' style={{fontSize: "3.5rem", fontFamily: 'Poppins', color: '#2f2f2f'}}>{paidAmount.replace('.', ',')}€</h1>
+                        <a onClick={() => router.replace('/reciept')} className='flex flex-nowrap justify-center content-center items-center underline'>Show Receipt<ChevronRightIcon className='w-3 h-3 text-black' /></a>
                     </div>
                 </div>
             </div>
@@ -182,24 +183,24 @@ const PaymentInformation = () => {
     const seconds = Math.floor((remainingTime / 1000) % 60);
     return (
         <>
-            <div className="w-[80vw] border-b border-neutral-300 left-10 absolute"></div>
-            <div className="container pb-[2rem] relative shadow-lg pt-2" style={{ overflowX: 'hidden' }}>
-                <div className='w-screen'>
-                    <div className='grid grid-cols-2 p-1' id='conf_code'>
-                        <div className='flex justify-start font-bold ml-[3rem] text-nowrap'>Confirmation code</div>
-                        <div className='flex justify-end font-bold mr-[3rem]'>{confirmationCode}</div>
+            <div className="w-[95vw] border-b border-neutral-300 left-[2.5vw] absolute"></div>
+            <div className="container pb-[0.75rem] relative shadow-lg pt-4" style={{ overflowX: 'hidden' }}>
+                <div className='w-screen' style={{color: '#4d5d70'}}>
+                    <div className='grid grid-cols-2 pb-[0.5rem]' id='conf_code'>
+                        <div className='flex justify-start font-bold ml-[1.5rem] font-size[0.9rem] text-nowrap text-black'>Confirmation code</div>
+                        <div className='flex justify-end font-bold mr-[1.5rem] font-size[0.9rem] text-black'>{confirmationCode}</div>
                     </div>
-                    <div className='grid grid-cols-2 p-1'>
-                        <div className='flex justify-start ml-5 ml-[3rem]'>Person</div>
-                        <div className='flex justify-end mr-[3rem]'>{name}</div>
+                    <div className='grid grid-cols-2 pb-[0.5rem] '>
+                        <div className='flex justify-start ml-5 ml-[1.5rem] font-size[0.9rem]'>Person</div>
+                        <div className='flex justify-end mr-[1.5rem] font-size[0.9rem]'>{name}</div>
                     </div>
-                    <div className='grid grid-cols-2 p-1'>
-                        <div className='flex justify-start ml-5 ml-[3rem]'>Time</div>
-                        <div className='flex justify-end mr-[3rem]'>{currentTime}</div>
+                    <div className='grid grid-cols-2 pb-[0.5rem]'>
+                        <div className='flex justify-start ml-5 ml-[1.5rem] font-size[0.9rem]'>Time</div>
+                        <div className='flex justify-end mr-[1.5rem] font-size[0.9rem]'>{currentTime}</div>
                     </div>
-                    <div className='grid grid-cols-2 p-1' id='valid_time'>
-                        <div className='flex justify-start ml-5 ml-[3rem]'>Valid for</div>
-                        <div className={`flex justify-end mr-[3rem] ${passed == true ? 'text-red-500' : 'text-green-500'}`}>{passed == true ? 'Expired' : `${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`}</div>
+                    <div className='grid grid-cols-2 pb-[0.5rem]' id='valid_time'>
+                        <div className='flex justify-start ml-5 ml-[1.5rem] font-size[0.9rem]'>Valid for</div>
+                        <div className={`flex justify-end mr-[1.5rem] font-size[0.9rem] ${passed == true ? 'text-red-500' : 'text-green-500'}`}>{passed == true ? 'Expired' : `${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`}</div>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ import { XMarkIcon, ArrowUpIcon, InformationCircleIcon, BackspaceIcon } from '@h
 import {useRouter} from 'next/navigation';
 import IOSPopup from './IOSPopup';
 import { setInterval } from 'timers/promises';
+import '@/app/components/css/font.css';
 import * as FooterSVG from '@/app/components/svg/FooterSVG';
 
 
@@ -18,10 +19,12 @@ function SliderButton() {
     function generate_confirm() {
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
       let result = '';
-      for (let i = 0; i < 4; i++) {
-          result += characters.charAt(Math.floor(Math.random() * characters.length));
+      if(localStorage.getItem('type') == '1'){
+        for (let i = 0; i < 4; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        result += '-';
       }
-      result += '-';
       for (let i = 0; i < 6; i++) {
           result += characters.charAt(Math.floor(Math.random() * characters.length));
       }
@@ -283,8 +286,8 @@ const RestarauntInfo = () => {
 
     return (
         <div className="flex justify-center items-center left-0" style={{overflowX: 'hidden'}}>
-            <div className='opacity-75 rounded-md mt-[8rem]' style={{background: 'rgba(201,206,232,1)'}}>
-                <h2 className='text-black p-4 text-xl' style={{fontWeight: '900'}}>{restaraunt}</h2>
+            <div className='opacity-75 rounded-md mt-[8rem]' style={{background: 'linear-gradient(90deg, rgba(223,245,255,0.7) 0%, rgba(233,223,255,0.7) 100%)', borderRadius: '10px'}}>
+                <h2 className='text-black p-4 text-xl' style={{fontWeight: '900',  fontFamily: 'Poppins'}}>{restaraunt}</h2>
             </div>
         </div>
     );
@@ -293,8 +296,8 @@ const RestarauntInfo = () => {
 const SumAmmountPay = () => {
     return (
         <div className="flex justify-center items-center left-0 p-5" style={{overflowX: 'hidden'}}>
-            <div id='sum' className='text-6xl font-bold'>0</div>
-            <span className=" text-6xl font-bold">€</span>
+            <div id='sum' className='text-6xl font-bold' style={{fontWeight: '900',  fontFamily: 'Poppins'}}>0</div>
+            <span className=" text-6xl font-bold" style={{fontWeight: '900',  fontFamily: 'Poppins'}}>€</span>
         </div>
     );
 }
