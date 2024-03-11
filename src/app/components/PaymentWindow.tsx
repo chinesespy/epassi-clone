@@ -285,9 +285,9 @@ const RestarauntInfo = () => {
   }, []);
 
     return (
-        <div className="flex justify-center items-center left-0" style={{overflowX: 'hidden'}}>
-            <div className='opacity-75 rounded-md mt-[8rem]' style={{background: 'linear-gradient(90deg, rgba(223,245,255,0.7) 0%, rgba(233,223,255,0.7) 100%)', borderRadius: '10px'}}>
-                <h2 className='text-black p-4 text-xl' style={{fontWeight: '900',  fontFamily: 'Poppins'}}>{restaraunt}</h2>
+        <div className="flex justify-center items-center left-0 w-full" style={{overflowX: 'hidden'}}>
+            <div className='opacity-75 rounded-md mt-[8rem] text-center' style={{width: "90vmin",background: 'linear-gradient(90deg, rgba(223,245,255,0.7) 0%, rgba(233,223,255,0.7) 100%)', borderRadius: '10px'}}>
+                <h2 className='text-black p-4' style={{fontWeight: '900',  fontFamily: 'Poppins', fontSize: "1.05rem", textWrap: "nowrap"}}>{restaraunt}</h2>
             </div>
         </div>
     );
