@@ -243,14 +243,14 @@ const Header = () => {
             <div className="grid grid-cols-2">
                 <div className="flex justify-start">
                     <div className="p-3">
-                        <button className='rounded-full w-8 h-8 border-gray-400 border-solid p-1' onClick={() => router.push('/reciept')} style={{borderWidth: '1px'}}>
+                        <button className='rounded-full w-8 h-8 border-gray-300 border-solid p-1' onClick={() => router.push('/reciept')} style={{borderWidth: '1px'}}>
                             <XMarkIcon className='text-black'/>
                         </button>
                     </div>
                 </div>
                 <div className="flex justify-end">
                     <div className="p-3">
-                        <button className='rounded-full w-28 h-10 border-gray-400 border-solid text-sm font-semibold' onClick={() => router.push('/hidden')} style={{borderWidth: '1px'}}>
+                        <button className='rounded-full w-28 h-10 border-gray-300 border-solid text-sm font-semibold' onClick={() => router.push('/hidden')} style={{borderWidth: '1px'}}>
                             <div className='flex justify-center items-center'>
                                 <span className='p-2 flex justify-start'>
                                 {(() => {
