@@ -291,11 +291,12 @@ const RestarauntInfo = () => {
   }, []);
 
     return (
-        <div className="flex justify-center items-center mt-[8rem] w-[95%] ml-[2.5%] rounded-md whitespace-wrap" style={{overflowX: 'hidden'}}>
-            <div className='rounded-md text-center pl-1 pr-1 w-full whitespace-wrap' style={{background: 'linear-gradient(90deg, rgba(203,225,235,0.4) 0%, rgba(213,203,235,0.4) 100%)', borderRadius: '10px'}}>
-                <h2 className='text-black text-xl pt-4 pb-4 w-full whitespace-wrap' style={{fontWeight: '900',  fontFamily: 'Poppins'}}>{restaraunt}</h2>
-            </div>
-        </div>
+      <div className="flex justify-center items-center mt-[8rem] w-[100vw] rounded-md" style={{overflowX: 'hidden'}}>
+      <div className='rounded-md text-center pl-4 pr-4 max-w-[90%] whitespace-normal' style={{background: 'linear-gradient(90deg, rgba(203,225,235,0.4) 0%, rgba(213,203,235,0.4) 100%)', borderRadius: '10px', display: 'inline-block', width: 'auto'}}>
+          <h2 className='text-black text-xl pt-4 pb-4 max-w-full' style={{fontWeight: '900',  fontFamily: 'Poppins', wordWrap: 'break-word'}}>{restaraunt}</h2>
+      </div>
+  </div>
+  
     );
 }
 

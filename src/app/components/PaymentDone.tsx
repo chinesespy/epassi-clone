@@ -38,13 +38,15 @@ const Header = () => {
                             <div className='flex justify-center items-center'>
                                 <span className='p-2 flex justify-start'>
                                 {(() => {
-                                  switch (type) {
+                                 switch (type) {
                                     case '1':
                                       return <FooterSVG.KnifeAndForkIcon className='w-5 h-5' />;
                                     case '2':
                                       return <FooterSVG.SneakerIcon className='w-5 h-5' />;
                                     case '3':
                                         return <FooterSVG.WellnessIcon className='w-5 h-5' />;
+                                    case '4':
+                                        return <FooterSVG.CultureIcon className='size-[1.45rem]' />;
                                     default:
                                       return <FooterSVG.KnifeAndForkIcon className='w-5 h-5' />;
                                   }
