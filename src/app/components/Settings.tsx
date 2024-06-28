@@ -174,6 +174,7 @@ const SettingsPage = () => {
                                                 <option value="1" selected={type === '1'}>Ravintola</option>
                                                 <option value="2" selected={type === '2'}>Liikunta</option>
                                                 <option value="3" selected={type === '3'}>Hyvinvointi</option>
+                                                <option value="4" selected={type === '4'}>Kulttuuri</option>
                                             </select>
                                         </div>
                                     </div> 

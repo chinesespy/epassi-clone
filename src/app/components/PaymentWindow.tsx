@@ -216,10 +216,12 @@ function SliderButton() {
       };
     return (
       <div className='container mx-auto p-5 max-w-screen  flex justify-center' style={{overflowX: 'hidden'}}>
-        <div className='text-gray-50 rounded-full text-opacity-60 p-4 w-[22rem] text-xs font-semibold relative overflow-hidden text-center' style={{background: 'linear-gradient(-90deg, #FF612F 0%, #E5007D 39.7%, #6C10B9 70%, #3B9CDB 100%)'}} ref={sliderRef}>
+        <div className={`transition-all duration-300 text-gray-50 rounded-full text-opacity-60 p-4 w-[22rem] text-xs font-semibold relative overflow-hidden text-center ${
+          isDragging ? 'opacity-100' : 'opacity-50'
+        }`} style={{background: 'linear-gradient(-90deg, #FF612F 0%, #E5007D 39.7%, #6C10B9 70%, #3B9CDB 100%)'}} ref={sliderRef}>
           <span className="absolute top-[0.32rem] left-[0.3rem] h-[2.3rem] w-[20%] rounded-full bg-white transition-all" onMouseDown={handleStart}
         onTouchStart={handleStart} ref={sliderComp} ></span>
-          SLIDE TO CONFIRM
+          <label className='ml-4'>SLIDE TO CONFIRM</label>
         </div>
       </div>
     );
@@ -250,9 +252,9 @@ const Header = () => {
                 </div>
                 <div className="flex justify-end">
                     <div className="p-3">
-                        <button className='rounded-full w-28 h-10 border-gray-300 border-solid text-sm font-semibold' onClick={() => router.push('/hidden')} style={{borderWidth: '1px'}}>
-                            <div className='flex justify-center items-center'>
-                                <span className='p-2 flex justify-start'>
+                        <button className='rounded-full w-fit pl-2 pr-2 h-10 border-gray-300 border-solid text-sm font-semibold' onClick={() => router.push('/hidden')} style={{borderWidth: '1px'}}>
+                            <div className='flex flex-row justify-center items-center'>
+                                <span className='p-2 pl-1 flex justify-start'>
                                 {(() => {
                                   switch (type) {
                                     case '1':
@@ -261,12 +263,16 @@ const Header = () => {
                                       return <FooterSVG.SneakerIcon className='w-5 h-5' />;
                                     case '3':
                                         return <FooterSVG.WellnessIcon className='w-5 h-5' />;
+                                    case '4':
+                                        return <FooterSVG.CultureIcon className='size-[1.45rem]' />;
                                     default:
                                       return <FooterSVG.KnifeAndForkIcon className='w-5 h-5' />;
                                   }
                                 })()}
                                 </span>
-                                {myMoney.replace('.', ',')} €
+                      
+                               <label className='font-light' style={{fontFamily: 'Poppins'}}>{myMoney.replace('.', ',')} €</label> 
+                               
                             </div>
                         </button>
                     </div>
@@ -285,9 +291,9 @@ const RestarauntInfo = () => {
   }, []);
 
     return (
-        <div className="flex justify-center items-center left-0 w-full" style={{overflowX: 'hidden'}}>
-            <div className='opacity-75 rounded-md mt-[8rem] text-center pl-3 pr-3' style={{width: "fit-content",background: 'linear-gradient(90deg, rgba(203,225,235,0.5) 0%, rgba(213,203,235,0.5) 100%)', borderRadius: '10px'}}>
-                <h2 className='text-black p-4' style={{fontWeight: '900',  fontFamily: 'Poppins', fontSize: "1.1rem", textWrap: "nowrap"}}>{restaraunt}</h2>
+        <div className="flex justify-center items-center mt-[8rem] w-[95%] ml-[2.5%] rounded-md whitespace-wrap" style={{overflowX: 'hidden'}}>
+            <div className='rounded-md text-center pl-1 pr-1 w-full whitespace-wrap' style={{background: 'linear-gradient(90deg, rgba(203,225,235,0.4) 0%, rgba(213,203,235,0.4) 100%)', borderRadius: '10px'}}>
+                <h2 className='text-black text-xl pt-4 pb-4 w-full whitespace-wrap' style={{fontWeight: '900',  fontFamily: 'Poppins'}}>{restaraunt}</h2>
             </div>
         </div>
     );
@@ -296,8 +302,8 @@ const RestarauntInfo = () => {
 const SumAmmountPay = () => {
     return (
         <div className="flex justify-center items-center left-0 p-5" style={{overflowX: 'hidden'}}>
-            <div id='sum' className='text-6xl font-bold' style={{fontWeight: '900',  fontFamily: 'Poppins'}}>0</div>
-            <span className=" text-6xl font-bold" style={{fontWeight: '900',  fontFamily: 'Poppins'}}>€</span>
+            <div id='sum' className='text-5xl font-bold'>0</div>
+            <span className=" text-5xl font-bold">€</span>
         </div>
     );
 }
