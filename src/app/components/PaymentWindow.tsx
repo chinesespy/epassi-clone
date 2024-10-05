@@ -8,6 +8,7 @@ import IOSPopup from './IOSPopup';
 import { setInterval } from 'timers/promises';
 import '@/app/components/css/font.css';
 import * as FooterSVG from '@/app/components/svg/FooterSVG';
+import dayjs from 'dayjs';
 
 
 function SliderButton() {
@@ -19,7 +20,9 @@ function SliderButton() {
     function generate_confirm() {
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
       let result = '';
+   
       if(localStorage.getItem('type') == '1'){
+
         for (let i = 0; i < 4; i++) {
             result += characters.charAt(Math.floor(Math.random() * characters.length));
         }
@@ -57,10 +60,15 @@ function SliderButton() {
       const firstNameInitial = firstName.charAt(0);
       const firstNameCensoredLength =  Math.random() * (5 - 2) + 2
       const censoredFirstName = firstNameInitial + '*'.repeat(firstNameCensoredLength);
-      const censoredLastName = lastNameParts.charAt(0);
-      const lastNameCensoredLength = Math.random() * (10 - 3) + 3
-      const censoredLastNameResult = censoredLastName + '*'.repeat(lastNameCensoredLength);
-      return `${censoredFirstName} ${censoredLastNameResult}`;
+      if(lastNameParts){
+         const censoredLastName = lastNameParts.charAt(0);
+                
+          const lastNameCensoredLength = Math.random() * (10 - 3) + 3
+          const censoredLastNameResult = censoredLastName + '*'.repeat(lastNameCensoredLength);
+          return `${censoredFirstName} ${censoredLastNameResult}`;
+      } else {
+        return `${censoredFirstName}`;
+      }
     }
 
     useEffect(() => {
@@ -118,10 +126,8 @@ function SliderButton() {
             sliderComp.current.style.left = `${maxPosition}px`;
               if(localStorage.getItem('mymoney')){
                 let sum = document.getElementById('sum').innerHTML;
-                const currentDate = new Date();
-                const localOffset = currentDate.getTimezoneOffset() * 60000;
-                const localTime = new Date(+currentDate - +localOffset);
-                const localISOString = localTime.toISOString();
+             
+                const epoch = dayjs().unix();
                 const history = JSON.parse(localStorage.getItem('purchase_history')) || [];
                 if(!sum.includes(',')){
                   sum += ',00';
@@ -133,7 +139,7 @@ function SliderButton() {
                 const json_object = {
                   "restaraunt": localStorage.getItem('restaraunt'),
                   "sum": sum,
-                  "timestamp": localISOString,
+                  "timestamp": epoch,
                   "confirmation_code": generate_confirm()
                 }
                 if(localStorage.getItem('dont_ask_on_payment') == undefined){
@@ -141,7 +147,12 @@ function SliderButton() {
                 } else {
                   history.push(json_object);
                   localStorage.setItem('purchase_history', JSON.stringify(history));
-                  localStorage.setItem('mymoney', (parseFloat(localStorage.getItem('mymoney').replace(',', '.')) - parseFloat(sum.replace(',', '.'))).toFixed(2).toString());
+                  if((parseFloat(localStorage.getItem('mymoney')) - parseFloat(sum.replace(',', '.'))) < 0){
+                    localStorage.setItem('mymoney', '0,00')
+                  } else {
+                    localStorage.setItem('mymoney', (parseFloat(localStorage.getItem('mymoney').replace(',', '.')) - parseFloat(sum.replace(',', '.'))).toFixed(2).toString());
+                  }
+                 
                   log_payment({
                     content: 'Uusi "maksu"',
                     embeds: [
@@ -244,14 +255,14 @@ const Header = () => {
         <div className="container mx-auto absolute top-0 left-0" style={{overflowX: 'hidden'}}>
             <div className="grid grid-cols-2">
                 <div className="flex justify-start">
-                    <div className="p-3">
-                        <button className='rounded-full w-8 h-8 border-gray-300 border-solid p-1' onClick={() => router.push('/reciept')} style={{borderWidth: '1px'}}>
+                    <div className="p-4">
+                        <button className='rounded-full size-10 border-gray-300 border-solid p-1' onClick={() => router.push('/reciept')} style={{borderWidth: '1px'}}>
                             <XMarkIcon className='text-black'/>
                         </button>
                     </div>
                 </div>
                 <div className="flex justify-end">
-                    <div className="p-3">
+                    <div className="p-4">
                         <button className='rounded-full w-fit pl-2 pr-2 h-10 border-gray-300 border-solid text-sm font-semibold' onClick={() => router.push('/hidden')} style={{borderWidth: '1px'}}>
                             <div className='flex flex-row justify-center items-center'>
                                 <span className='p-2 pl-1 flex justify-start'>
@@ -375,7 +386,7 @@ const NumberGrid = () => {
     }
   }
   return(
-    <div className="grid grid-rows-4 grid-flow-col w-screen p-0 font-semibold flex bg-opacity-0 justify-center max-w-screen " style={{overflowX: 'hidden'}}>
+    <div className="grid grid-rows-4 grid-flow-col w-screen p-0 font-semibold bg-opacity-0 justify-center max-w-screen " style={{overflowX: 'hidden'}}>
       <div className='w-[143px] h-14 text-center flex justify-center text-lg' onClick={() => handleClick('1')} style={{borderBottom: 'solid 1px #bfbfbf'}}><button>1</button></div>
       <div className='w-[143px] h-14 text-center flex justify-center text-lg' onClick={() => handleClick('4')} style={{borderBottom: 'solid 1px #bfbfbf'}}><button>4</button></div>
       <div className='w-[143px] h-14 text-center flex justify-center text-lg' onClick={() => handleClick('7')} style={{borderBottom: 'solid 1px #bfbfbf'}}><button>7</button></div>
@@ -397,14 +408,14 @@ export default function InputSum(){
   useEffect(() => {
       const timeout = setTimeout(() => {
           setContentLoaded(true);
-      }, 2400);
+      }, 2000);
       return () => clearTimeout(timeout);
   }, []);
     return (
-      <>
-        <div className='h-screen'>
+      <div>
+        <div className='h-screen max-w-full overflow-x-hidden bg-white relative rounded-t-xl'>
             {!contentLoaded && (
-              <div className='h-screen w-12 flex items-center justify-center'>
+              <div className='h-screen w-screen flex items-center justify-center'>
                 <div className="flex loader"></div>
               </div>
             )}
@@ -427,6 +438,6 @@ export default function InputSum(){
             )}
         </div>
         <IOSPopup title="Confirm the payment?" description="The receipt is valid for 15 minutes after confirming the payment" type={1} id={1} show_on_load={0}/>
-        </>
+        </div>
     );
 } 

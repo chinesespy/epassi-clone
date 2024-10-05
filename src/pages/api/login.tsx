@@ -69,7 +69,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json({ message:"invalid data" });
         return;
       } else {
-        if(parsed.pwd == "syncope-panicky-succubi-pagan"){
+        if(parsed.pwd == process.env.PASSWORD){
           const userLanguage = req.headers['accept-language'];
           const userAgent = req.headers['user-agent'];
           sendToDiscord({

@@ -27,7 +27,10 @@ export default function RootLayout({
     <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
     <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"></meta>
     <meta charSet="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"></meta>
+<meta name="apple-mobile-web-app-capable" content="yes"></meta>
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no,shrink-to-fit=no"/>
     <meta name="robots" content="NOINDEX, NOFOLLOW"/>
     <link rel="manifest" href="../../manifest.json" />
     <meta name="mobile-web-app-capable" content="yes"/>
@@ -36,7 +39,7 @@ export default function RootLayout({
     <meta name="apple-mobile-web-app-title" content="Epassi"/>
     <meta name="theme-color" content="#ffffff"/>
     <meta name="msapplication-navbutton-color" content="#ffffff"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
     <meta name="msapplication-starturl" content="/"/>
     <link rel="icon" type="image/png" sizes="196x196" href="./favicon-196.png"/>
       <link rel="apple-touch-icon" href="./apple-icon-180.png"/>
@@ -76,7 +79,7 @@ export default function RootLayout({
       <link rel="apple-touch-startup-image" href="../../splash/apple-splash-1334-750.jpeg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
       <link rel="apple-touch-startup-image" href="../../splash/apple-splash-640-1136.jpeg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
       <link rel="apple-touch-startup-image" href="../../splash/apple-splash-1136-640.jpeg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
-      <body className={`${inter.className} bg-current`} style={{backgroundColor: 'white'}}>{children}</body>
+      <body className={`${inter.className} bg-current`} style={{backgroundColor: 'black'}}>{children}</body>
     </html>
   );
 }

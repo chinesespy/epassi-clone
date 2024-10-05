@@ -19,7 +19,7 @@ export default function Home() {
     };
   }, []);
   return (
-    <main className="flex min-h-screen max-w-screen flex-col items-center justify-between p-6" style={{overflow: 'hidden'}}>
+    <main className="flex min-h-screen max-w-screen flex-col items-center justify-between" style={{overflow: 'hidden'}}>
         <PaymentWindow/>
     </main>
   );
