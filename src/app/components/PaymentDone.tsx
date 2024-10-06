@@ -106,7 +106,7 @@ const MainInfo = () => {
                         <span className='font-semibold flex text-sm justify-center pb-12' id='payment_status'><CheckCircleIcon className='w-5 h-5 mr-3' /> PAYMENT APPROVED</span>
                     </div>
                     <div className='mt-[16vmin] w-full flex justify-center items-center flex-col'>
-                        <h1 className='font-extrabold w-2/3 whitespace-normal break-all' style={{fontFamily: "Poppins", fontSize: "2rem"}}>{restaraunt}</h1>
+                        <h1 className='font-extrabold w-2/3 whitespace-normal break-words' style={{fontFamily: "Poppins", fontSize: "2rem"}}>{restaraunt}</h1>
                         <h1 className='font-bold' style={{fontSize: "3.5rem", fontFamily: 'Poppins', color: '#2f2f2f'}}>{paidAmount.replace('.', ',')} €</h1>
                         <a onClick={() => router.replace('/reciept')} className='flex flex-nowrap justify-center content-center items-center underline'>Show Receipt<ChevronRightIcon className='w-3 h-3 text-black' /></a>
                     </div>
