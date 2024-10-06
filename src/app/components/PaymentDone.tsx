@@ -221,7 +221,7 @@ const PaymentInformation = () => {
 
 const RollingSVG = () => {
     return (
-        <div className='relative flex w-[120vmin] left-[-4rem] h-[9rem]'>
+        <div className='relative flex w-[120vmin] left-[-4rem] h-[7.5rem]'>
             <div className="slider-container h-full">
                 <div className="image-container flex flex-nowrap">
                     <div className='flex flex-wrap relative -right-10 top-[-25rem]' id='img_container'>
